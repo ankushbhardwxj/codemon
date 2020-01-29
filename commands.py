@@ -28,10 +28,3 @@ def init(contestName):
 
 def listen(filename):
   print('listen to some file changes');
-
-if __name__ == '__main__':
-  fire.Fire({
-    'init': init,
-    'listen': listen
-  })
-
