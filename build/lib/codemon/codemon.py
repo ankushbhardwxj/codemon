@@ -1,7 +1,18 @@
 #!/usr/bin/python
 import sys
+import commands
 import os
 from clint.textui import colored
+
+def main():
+	command = sys.argv[0]
+	argument = sys.argv[1]
+	if argument == "init":
+		contestName = sys.argv[2]
+		commands.init(contestName)
+	elif argument == "listen":
+		fName = sys.argv[2]
+		commands.listen(fName)
 
 # init takes an input contest name and creates a directory
 # with that name and creates 5 files. Also it copies content 
@@ -29,13 +40,3 @@ def init(contestName):
 
 def listen(filename):
   print('listen to some file changes');
-
-def main():
-	command = sys.argv[0]
-	argument = sys.argv[1]
-	if argument == "init":
-		contestName = sys.argv[2]
-		init(contestName)
-	elif argument == "listen":
-		fName = sys.argv[2]
-		listen(fName)

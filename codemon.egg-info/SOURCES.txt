@@ -1,0 +1,9 @@
+README.md
+setup.py
+codemon/__init__.py
+codemon/codemon.py
+codemon.egg-info/PKG-INFO
+codemon.egg-info/SOURCES.txt
+codemon.egg-info/dependency_links.txt
+codemon.egg-info/entry_points.txt
+codemon.egg-info/top_level.txt
