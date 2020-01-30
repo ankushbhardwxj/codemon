@@ -40,3 +40,4 @@ Note: Codemon currently supports C++ only.
 
 ## Contributions 
 Don't hesitate to create issues and PRs for improving codemon. 
+All contributions are welcome :fire
