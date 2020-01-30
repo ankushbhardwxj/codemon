@@ -17,20 +17,20 @@ template = '#include<iostream>\nusing namespace std;\n\nint main(){ \n\n	return 
 def init(contestName):
 	# create a directory with contest name
 	try:
-		print(colored.green('Make some files and folders for ' + colored.white(contestName)));
+		print(colored.green('Make some files and folders for ' + colored.magenta(contestName)));
 		path = os.getcwd()
 		os.mkdir(path + '/' + contestName)
 	except OSError: 
 		print("Failed! This directory already exists.")
 	else:
-		print(colored.blue('Directory is made'))
+		print(colored.yellow('Directory is made'))
 			# create files for contest (should be 6 cpp files)
-		fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
+		fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp','input.txt']
 		for files in range(len(fileNames)):
 			f = open(path + '/' + contestName + '/' + fileNames[files],"w+")
 			f.write(template)
 			f.close()
-		print(colored.blue('Files have been created'))
+		print(colored.cyan('Files have been created'))
 
 	
 
@@ -44,17 +44,29 @@ def init(contestName):
 # keep listening continuously till ctrl + z is used on terminal
 # output should be : test case outputs, time for program , error in red.
 def isModified(event):
-	print(os.path.basename(event.src_path))
+	filename = os.path.basename(event.src_path)
+	if filename != "asd" and filename != "prog" : 
+		print('\nChange made at '+ filename)
+		print('\nCompiling '+ filename)
+		os.system('g++ ' + filename + ' -o ' + 'prog')
+		print('Running')	
+		print('Taking inputs from input.txt')
+		os.system('./prog < input.txt')
+	
 
-def listen(filename):
-	if os.path.exists(filename): 
-		print("Currently listening to it")
+	
+
+def listen():
+	print(colored.yellow("Getting files in directory"))
+	path = os.getcwd()
+	dircontents = os.listdir(path)
+	if len(dircontents) != 0: 
+		print(colored.magenta("Currently listening for file changes"))
 		patterns = "*"
 		ignore_patterns = ""
 		ignore_directories = False
 		case_sensitive = True
-		path = os.getcwd()
-		event_handler = PatternMatchingEventHandler(patterns, ignore_patterns,ignore_directories,case_sensitive)
+		event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
 		event_handler.on_modified = isModified 
 		observer = Observer()
 		observer.schedule(event_handler,path,recursive=True)
@@ -66,7 +78,7 @@ def listen(filename):
 			observer.stop()
 		observer.join()
 	else:
-		print("File doesnt exist, check filename/path")
+		print(colored.red("No files exist, check filename/path"))
 	
 	
 
@@ -77,5 +89,4 @@ def main():
 		contestName = sys.argv[2]
 		init(contestName)
 	elif argument == "listen":
-		fName = sys.argv[2]
-		listen(fName)
+		listen()
