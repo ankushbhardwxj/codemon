@@ -15,6 +15,7 @@ Note: Codemon currently supports C++ only.
 - Install the package locally using `pip install .`
   This command will place `codemon` executable at `/usr/local/bin` so that it can 
   be executed anywhere.
+- Type `codemon` and you are ready to go.
 
 ## CLI - commands
    ```

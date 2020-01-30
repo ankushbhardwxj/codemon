@@ -25,11 +25,14 @@ def init(contestName):
 	else:
 		print(colored.yellow('Directory is made'))
 			# create files for contest (should be 6 cpp files)
-		fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp','input.txt']
+		fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
 		for files in range(len(fileNames)):
 			f = open(path + '/' + contestName + '/' + fileNames[files],"w+")
 			f.write(template)
 			f.close()
+		#create input file
+		f = open(path + '/' + contestName + '/' + "input.txt","w+")
+		f.close()
 		print(colored.cyan('Files have been created'))
 
 	
@@ -45,12 +48,13 @@ def init(contestName):
 # output should be : test case outputs, time for program , error in red.
 def isModified(event):
 	filename = os.path.basename(event.src_path)
-	if filename != "asd" and filename != "prog" : 
-		print('\nChange made at '+ filename)
-		print('\nCompiling '+ filename)
+	foldername = os.path.basename(os.getcwd())
+	if filename != foldername and filename != "prog" and filename != "input.txt": 
+		print(colored.yellow('\nChange made at '+ filename))
+		print(colored.cyan('\nCompiling '+ filename))
 		os.system('g++ ' + filename + ' -o ' + 'prog')
 		print('Running')	
-		print('Taking inputs from input.txt')
+		print(colored.yellow('Taking inputs from input.txt'))
 		os.system('./prog < input.txt')
 	
 
@@ -80,13 +84,22 @@ def listen():
 	else:
 		print(colored.red("No files exist, check filename/path"))
 	
-	
+def showHelp():
+	print("           ---CODEMON---          ")
+	print(colored.cyan("  a CLI tool for competitive coders"))
+	print("\nCOMMANDS: \n")
+	print("codemon - - - - - - - - - - - - - - - shows help")
+	print("codemon init <contestName>  - - - - - initialises a contest")
+	print("codemon listen - - - - - - - - - - -  compiles and gives output")
 
 def main():
-	command = sys.argv[0]
-	argument = sys.argv[1]
-	if argument == "init":
-		contestName = sys.argv[2]
-		init(contestName)
-	elif argument == "listen":
-		listen()
+	if len(sys.argv) < 2:
+		showHelp()
+	else:	
+		command = sys.argv[0]
+		argument = sys.argv[1]
+		if argument == "init":
+			contestName = sys.argv[2]
+			init(contestName)
+		elif argument == "listen":
+			listen()
