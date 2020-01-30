@@ -8,6 +8,7 @@ during a contest.
 #### Codemon takes care of everything else so that you only focus on writing correct code and implementing complex algorithms.
 
 Note: Codemon currently supports C++ only. 
+![](code.gif)
 
 ## How to install ?
 - Type `git clone https://github.com/ankingcodes/codemon.git` to clone the package
