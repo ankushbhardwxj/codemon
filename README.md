@@ -12,9 +12,14 @@ Note: Codemon currently supports C++ only.
 ![](code.gif)
 
 ## How to install ?
+#### Make sure you have pip, python and setuptools installed.
+- To install setuptools, use `pip install setuptools`
 - Type `git clone https://github.com/ankingcodes/codemon.git` to clone the package
 - Type `cd codemon`
+- Type `sudo python3 setup.py install`
+- Type `sudo python setup.py bdist_wheel`
 - Install the package locally using `pip install .`
+  
   This command will place `codemon` executable at `/usr/local/bin` so that it can 
   be executed anywhere.
 - Type `codemon` and you are ready to go.
