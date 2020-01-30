@@ -1,4 +1,4 @@
-# Codemon 
+#                           Codemon 
 ### A CLI tool to ace Competitive Programming Contests.
 
 Mostly, the time of a competitive programmer is wasted in compiling, adding inputs, 
@@ -41,4 +41,4 @@ Note: Codemon currently supports C++ only.
 
 ## Contributions 
 Don't hesitate to create issues and PRs for improving codemon. 
-All contributions are welcome :fire
+All contributions are welcome 
