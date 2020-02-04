@@ -13,8 +13,10 @@ from clint.textui import colored
 # with that name and creates 5 files. Also it copies content 
 # from a template doc to each of the files.
 template = '#include<iostream>\nusing namespace std;\n\nint main(){ \n\n	return 0; \n}'
+fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
+practiceFiles = ['A.cpp','B.cpp','C.cpp']
 
-def init(contestName):
+def init(contestName,fileNames):
 	# create a directory with contest name
 	try:
 		print(colored.green('Make some files and folders for ' + colored.magenta(contestName)));
@@ -25,7 +27,6 @@ def init(contestName):
 	else:
 		print(colored.yellow('Directory is made'))
 			# create files for contest (should be 6 cpp files)
-		fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
 		for files in range(len(fileNames)):
 			f = open(path + '/' + contestName + '/' + fileNames[files],"w+")
 			f.write(template)
@@ -34,8 +35,6 @@ def init(contestName):
 		f = open(path + '/' + contestName + '/' + "input.txt","w+")
 		f.close()
 		print(colored.cyan('Files have been created'))
-
-	
 
 # when listen is used along with a filename, we listen for changes to that file 
 # whenever someone saves a file, we need to take inputs from an input.txt for the 
@@ -90,7 +89,8 @@ def showHelp():
 	print("\nCOMMANDS: \n")
 	print("codemon - - - - - - - - - - - - - - - shows help")
 	print("codemon init <contestName>  - - - - - initialises a contest")
-	print("codemon listen - - - - - - - - - - -  compiles and gives output")
+	print("codemon listen  - - - - - - - - - - - compiles and gives output")
+	print("codemon practice  - - - - - - - - - - starts a practice session")
 
 def main():
 	if len(sys.argv) < 2:
@@ -100,6 +100,8 @@ def main():
 		argument = sys.argv[1]
 		if argument == "init":
 			contestName = sys.argv[2]
-			init(contestName)
+			init(contestName,fileNames)
 		elif argument == "listen":
 			listen()
+		elif argument == "practice":
+			init(contestName,practiceFiles)
