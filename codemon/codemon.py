@@ -104,4 +104,5 @@ def main():
 		elif argument == "listen":
 			listen()
 		elif argument == "practice":
+			contestName = sys.argv[2]
 			init(contestName,practiceFiles)
