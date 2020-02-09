@@ -31,7 +31,7 @@ def init(contestName,fileNames):
 			f = open(path + '/' + contestName + '/' + fileNames[files],"w+")
 			f.write(template)
 			f.close()
-		#create input file
+		# create input file
 		f = open(path + '/' + contestName + '/' + "input.txt","w+")
 		f.close()
 		print(colored.cyan('Files have been created'))
@@ -90,7 +90,7 @@ def showHelp():
 	print("codemon - - - - - - - - - - - - - - - shows help")
 	print("codemon init <contestName>  - - - - - initialises a contest")
 	print("codemon listen  - - - - - - - - - - - compiles and gives output")
-	print("codemon practice  - - - - - - - - - - starts a practice session")
+	print("codemon practice <dirName>  - - - - - starts a practice session")
 
 def main():
 	if len(sys.argv) < 2:
