@@ -56,9 +56,6 @@ def isModified(event):
 		print(colored.yellow('Taking inputs from input.txt'))
 		os.system('./prog < input.txt')
 	
-
-	
-
 def listen():
 	print(colored.yellow("Getting files in directory"))
 	path = os.getcwd()
@@ -96,13 +93,24 @@ def main():
 	if len(sys.argv) < 2:
 		showHelp()
 	else:	
-		command = sys.argv[0]
-		argument = sys.argv[1]
-		if argument == "init":
-			contestName = sys.argv[2]
-			init(contestName,fileNames)
-		elif argument == "listen":
-			listen()
-		elif argument == "practice":
-			contestName = sys.argv[2]
-			init(contestName,practiceFiles)
+		countArg=0;
+		for arg in sys.argv: 
+			countArg+=1;
+			if arg == "init": 
+				if sys.argv[countArg] == '-n':
+					file = sys.argv[countArg+1]
+					path = '.'
+					f = open(path + '/' + file + '.cpp',"w+")
+					f.write(template)
+					f.close()
+					print(colored.yellow("Created "+file+'.cpp'))
+					break;
+				else:
+					contestName = sys.argv[countArg]
+					init(contestName, fileNames)
+			elif arg == "listen":
+				listen()
+			elif arg == "practice": 
+				contestName = sys.argv[countArg+1]
+				init(contestName, practiceFiles)
+		
