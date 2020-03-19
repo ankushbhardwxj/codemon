@@ -31,6 +31,10 @@ Note: Codemon currently supports C++ only.
     
   This creates a directory with the name of the contest and creates 6 `.cpp` files 
   as per contests in CodeForces.
+  You can also create a file with custom name and start listening to it immediately using the command as follows: 
+  ```
+  codemon init -n <fileName>
+  ```
 
   Copy your inputs for a respective coding question to the `input.txt` file.
 
