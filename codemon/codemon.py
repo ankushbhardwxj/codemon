@@ -12,7 +12,7 @@ from clint.textui import colored
 # init takes an input contest name and creates a directory
 # with that name and creates 5 files. Also it copies content 
 # from a template doc to each of the files.
-template = '#include<iostream>\nusing namespace std;\n\nint main(){ \n\n	return 0; \n}'
+template = '/*\nauthor: @ankingcodes\n*/\n#include<bits/stdc++.h>\n#include<algorithm>\nusing namespace std;\n#define ll long long\n\nint main(){ \n\n	return 0; \n}'
 fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
 practiceFiles = ['A.cpp','B.cpp','C.cpp']
 
