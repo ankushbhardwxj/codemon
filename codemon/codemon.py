@@ -6,13 +6,28 @@ import logging
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
 from clint.textui import colored
+from datetime import datetime
 
+now = datetime.now()
 
+template = """/*
+	author: @ankingcodes
+*/
+#include<bits/stdc++.h>
+#include<algorithm>
+using namespace std;
+#define ll long long 
 
+int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+  ll t; 
+	return 0;
+}
+"""
 # init takes an input contest name and creates a directory
 # with that name and creates 5 files. Also it copies content 
 # from a template doc to each of the files.
-template = '/*\nauthor: @ankingcodes\n*/\n#include<bits/stdc++.h>\n#include<algorithm>\nusing namespace std;\n#define ll long long\n\nint main(){ \n\n	return 0; \n}'
 fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
 practiceFiles = ['A.cpp','B.cpp','C.cpp']
 
@@ -105,7 +120,6 @@ def main():
 					f.write(template)
 					f.close()
 					print(colored.yellow("Created "+file+'.cpp'))
-					listen()
 					break;
 				else:
 					contestName = sys.argv[countArg]
