@@ -9,7 +9,7 @@ from clint.textui import colored
 from datetime import datetime
 
 now = datetime.now()
-
+# the template for initial code
 template = """/*
 	author: @ankingcodes
 */
