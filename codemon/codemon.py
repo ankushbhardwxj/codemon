@@ -16,12 +16,12 @@ template = """/*
 #include<bits/stdc++.h>
 #include<algorithm>
 using namespace std;
-#define ll long long 
+#define ll long long
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-  ll t; 
+	ll t;
 	return 0;
 }
 """
