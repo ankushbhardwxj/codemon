@@ -7,8 +7,9 @@ from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
 from clint.textui import colored
 from datetime import datetime
-
+# get the current time
 now = datetime.now()
+
 # the template for initial code
 template = """/*
 	author: @ankingcodes
