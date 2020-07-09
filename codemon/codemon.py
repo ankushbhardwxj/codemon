@@ -9,10 +9,10 @@ from clint.textui import colored
 from datetime import datetime
 # get the current time
 now = datetime.now()
-
 # the template for initial code
 template = """/*
 	author: @ankingcodes
+  created: %s
 */
 #include<bits/stdc++.h>
 #include<algorithm>
@@ -25,7 +25,7 @@ int main(){
 	ll t;
 	return 0;
 }
-"""
+""" % (now)
 # init takes an input contest name and creates a directory
 # with that name and creates 5 files. Also it copies content 
 # from a template doc to each of the files.
