@@ -11,26 +11,36 @@ from datetime import datetime
 now = datetime.now()
 # the template for initial code
 template = """/*
-	author: @ankingcodes
+  author: @ankingcodes
   created: %s
 */
 #include<bits/stdc++.h>
 #include<algorithm>
 using namespace std;
+
 #define ll long long
+#define MOD 1000000000
 
 int main(){
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	ll t;
-	return 0;
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  ll t;
+  return 0;
 }
 """ % (now)
-# init takes an input contest name and creates a directory
-# with that name and creates 5 files. Also it copies content 
-# from a template doc to each of the files.
+
 fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
 practiceFiles = ['A.cpp','B.cpp','C.cpp']
+
+def showHelp():
+	print("           ---CODEMON---          ")
+	print(colored.cyan("  a CLI tool for competitive coders"))
+	print("\nCOMMANDS: \n")
+	print("codemon - - - - - - - - - - - - - - - shows help")
+	print("codemon init <contestName>  - - - - - initialises a contest")
+	print("codemon init -n <file>  - - - - - - - creates file with given name")
+	print("codemon listen  - - - - - - - - - - - compiles and gives output")
+	print("codemon practice <dirName>  - - - - - starts a practice session")
 
 def init(contestName,fileNames):
 	# create a directory with contest name
@@ -52,15 +62,6 @@ def init(contestName,fileNames):
 		f.close()
 		print(colored.cyan('Files have been created'))
 
-# when listen is used along with a filename, we listen for changes to that file 
-# whenever someone saves a file, we need to take inputs from an input.txt for the 
-# particular file, and then, 
-# g++ filename.cpp -o filename
-# ./filename < input 
-# time ./filename
-# show output on terminal 
-# keep listening continuously till ctrl + z is used on terminal
-# output should be : test case outputs, time for program , error in red.
 def isModified(event):
 	filename = os.path.basename(event.src_path)
 	foldername = os.path.basename(os.getcwd())
@@ -96,16 +97,6 @@ def listen():
 	else:
 		print(colored.red("No files exist, check filename/path"))
 	
-def showHelp():
-	print("           ---CODEMON---          ")
-	print(colored.cyan("  a CLI tool for competitive coders"))
-	print("\nCOMMANDS: \n")
-	print("codemon - - - - - - - - - - - - - - - shows help")
-	print("codemon init <contestName>  - - - - - initialises a contest")
-	print("codemon init -n <file>  - - - - - - - creates file with given name")
-	print("codemon listen  - - - - - - - - - - - compiles and gives output")
-	print("codemon practice <dirName>  - - - - - starts a practice session")
-
 def main():
 	if len(sys.argv) < 2:
 		showHelp()
