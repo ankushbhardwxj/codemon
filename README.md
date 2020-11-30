@@ -1,4 +1,7 @@
 #                           Codemon 
+
+[![Join the chat at https://gitter.im/codemon-py/community](https://badges.gitter.im/codemon-py/community.svg)](https://gitter.im/codemon-py/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### A CLI tool to ace Competitive Programming Contests.
 
 Mostly, the time of a competitive programmer is wasted in compiling, adding inputs, 
