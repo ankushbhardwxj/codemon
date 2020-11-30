@@ -4,13 +4,14 @@ import time
 from clint.textui import colored
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
-from .isModified import isModified
+from codemon.isModified import isModified
 
 
 def listen():
 	print(colored.yellow("Getting files in directory"))
 	path = os.getcwd()
 	dircontents = os.listdir(path)
+	
 	if len(dircontents) != 0: 
 		print(colored.magenta("Currently listening for file changes"))
 		patterns = "*"
@@ -28,5 +29,6 @@ def listen():
 		except KeyboardInterrupt:
 			observer.stop()
 		observer.join()
+	
 	else:
 		print(colored.red("No files exist, check filename/path"))

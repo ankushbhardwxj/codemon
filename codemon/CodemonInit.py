@@ -1,6 +1,6 @@
 import os
 from clint.textui import colored
-from .resources import template_cpp
+from codemon.CodemonMeta import template_cpp
 
 def init(contestName,fileNames):
 	# create a directory with contest name

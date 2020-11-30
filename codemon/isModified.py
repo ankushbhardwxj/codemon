@@ -9,5 +9,6 @@ def isModified(event):
 		print(colored.cyan('\nCompiling '+ filename))
 		os.system('g++ ' + filename + ' -o ' + 'prog')
 		print('Running')	
+		print()
 		print(colored.yellow('Taking inputs from input.txt'))
 		os.system('./prog < input.txt')
