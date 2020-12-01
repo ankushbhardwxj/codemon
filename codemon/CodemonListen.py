@@ -40,6 +40,5 @@ def isModified(event):
     print(colored.cyan('\nCompiling '+ filename))
     if os.system('g++ ' + filename + ' -o ' + 'prog') == 0:
         print('Running')	
-        print()
         print(colored.yellow('Taking inputs from input.txt'))
         os.system(f'{os.getcwd()}/prog < input.txt')
