@@ -3,4 +3,4 @@ chromedriver_linux64.zip
 chromedriver_linux64.zip.1
 codemon.egg-info/
 dist/ 
-codemon/__pycache__
+codemon/__pycache__/
