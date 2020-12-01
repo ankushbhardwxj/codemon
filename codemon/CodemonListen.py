@@ -4,8 +4,6 @@ import time
 from clint.textui import colored
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
-from codemon.isModified import isModified
-
 
 def listen():
   print(colored.yellow("Getting files in directory"))
