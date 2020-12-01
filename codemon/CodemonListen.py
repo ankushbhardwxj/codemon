@@ -15,7 +15,7 @@ def listen():
   if len(dircontents) != 0:
     print(colored.magenta("Currently listening for file changes"))
     patterns = "*"
-    ignore_patterns = ""
+    ignore_patterns = ['prog', '*.exe']
     ignore_directories = False
     case_sensitive = True
     event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
@@ -44,4 +44,4 @@ def isModified(event):
     print('Running')	
     print()
     print(colored.yellow('Taking inputs from input.txt'))
-    os.system('./prog < input.txt')
+    os.system(f'{os.getcwd()}/prog < input.txt')
