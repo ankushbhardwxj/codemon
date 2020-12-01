@@ -71,7 +71,7 @@ def isModified(event):
 		os.system('g++ ' + filename + ' -o ' + 'prog')
 		print('Running')	
 		print(colored.yellow('Taking inputs from input.txt'))
-		os.system('./prog < input.txt')
+		os.system(f'{os.getcwd()}/prog < input.txt')
 	
 def listen():
 	print(colored.yellow("Getting files in directory"))
@@ -79,8 +79,8 @@ def listen():
 	dircontents = os.listdir(path)
 	if len(dircontents) != 0: 
 		print(colored.magenta("Currently listening for file changes"))
-		patterns = "*"
-		ignore_patterns = ""
+		patterns = ['*']
+		ignore_patterns = ['prog', '*.exe']
 		ignore_directories = False
 		case_sensitive = True
 		event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
@@ -107,7 +107,7 @@ def main():
 			if arg == "init": 
 				if sys.argv[countArg] == '-n':
 					file = sys.argv[countArg+1]
-					path = '.'
+					path = os.getcwd()
 					f = open(path + '/' + file + '.cpp',"w+")
 					f.write(template)
 					f.close()
