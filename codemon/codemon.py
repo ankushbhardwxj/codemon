@@ -13,9 +13,9 @@ def main():
     showHelp()
 
   else:
-    countArg = 0;
+    countArg = 0
     for arg in sys.argv:
-      countArg+=1;
+      countArg+=1
 
       if arg == "init":
 
@@ -27,7 +27,7 @@ def main():
           f.write(template)
           f.close()
           print(colored.yellow("Created "+file+'.cpp'))
-          break;
+          break
 
         else:
           contestName = sys.argv[countArg]

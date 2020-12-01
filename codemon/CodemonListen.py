@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+from sys import platform as _platform
 from clint.textui import colored
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
@@ -41,4 +42,19 @@ def isModified(event):
     if os.system('g++ ' + filename + ' -o ' + 'prog') == 0:
         print('Running')	
         print(colored.yellow('Taking inputs from input.txt'))
-        os.system(f'{os.getcwd()}/prog < input.txt')
+
+        #Differentiating between different OS and running code accordingly.
+        if _platform == "linux" or _platform == "linux2":
+          # linux
+          os.system('./prog < input.txt')
+        elif _platform == "darwin":
+          # MAC OS X
+          os.system('./prog < input.txt')
+        elif _platform == "win32":
+          # Windows
+          os.system('prog < input.txt')
+        elif _platform == "win64":
+          # Windows 64-bit
+          os.system('prog < input.txt')
+
+        print(colored.green('Changed CPP file compiled and run. Check output.'))
