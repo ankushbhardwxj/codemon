@@ -68,10 +68,12 @@ def isModified(event):
 	if filename != foldername and filename != "prog" and filename != "input.txt": 
 		print(colored.yellow('\nChange made at '+ filename))
 		print(colored.cyan('\nCompiling '+ filename))
-		os.system('g++ ' + filename + ' -o ' + 'prog')
-		print('Running')	
-		print(colored.yellow('Taking inputs from input.txt'))
-		os.system('./prog < input.txt')
+		if os.system('g++ ' + filename + ' -o ' + 'prog') == 0:
+			print('Running')	
+			print(colored.yellow('Taking inputs from input.txt'))
+			os.system('./prog < input.txt')
+		else:
+			pass
 	
 def listen():
 	print(colored.yellow("Getting files in directory"))
