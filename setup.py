@@ -7,7 +7,9 @@ setup(
   packages=find_packages(),
   install_requires=[
     'watchdog',
-    'clint'
+    'clint',
+    'requests',
+    'bs4'
   ],
   entry_points={
     'console_scripts': [
