@@ -38,7 +38,10 @@ def isModified(event):
   if filename != foldername and filename != "prog" and filename != "input.txt": 
     print(colored.yellow('\nChange made at '+ filename))
     print(colored.cyan('\nCompiling '+ filename))
-    if os.system('g++ ' + filename + ' -o ' + 'prog') == 0:
+    folder,lang = filename.split('.')
+    fileLocation = folder + '/' + filename
+    inputLocation = folder + '/' + 'input.txt'
+    if os.system('g++ ' + fileLocation + ' -o ' + 'prog') == 0:
         print('Running')	
         print(colored.yellow('Taking inputs from input.txt'))
-        os.system(f'{os.getcwd()}/prog < input.txt')
+        os.system(f'{os.getcwd()}/prog < {inputLocation}')

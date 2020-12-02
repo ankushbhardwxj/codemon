@@ -18,8 +18,11 @@ def main():
       countArg+=1;
 
       if arg == "init":
-
-        if sys.argv[countArg] == '-n':
+        
+        if len(sys.argv) == 2:
+          print(colored.red("Error:")+"Insufficient arguements")
+        
+        elif sys.argv[countArg] == '-n':
           file = sys.argv[countArg+1]
           path = '.'
           f = open(path + '/' + file + '.cpp',"w+")

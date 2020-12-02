@@ -12,13 +12,18 @@ def init(contestName,fileNames):
     print("Failed! This directory already exists.")
   else:
     print(colored.yellow('Directory is made'))
-    # create files for contest (should be 6 cpp files)
-    for files in range(len(fileNames)):
-      f = open(path + '/' + contestName + '/' + fileNames[files],"w+")
+    # create folders for each problem and in each folder 3 files: (fileName.cpp, input.txt, output.txt)
+    for file in fileNames:
+      folderPath = path + '/' + contestName + '/' + file
+      os.mkdir(folderPath)
+      # create .cpp file
+      f = open(folderPath + '/' + file + '.cpp', "w+")
       template = template_cpp()
       f.write(template)
       f.close()
-    # create input file
-    f = open(path + '/' + contestName + '/' + "input.txt","w+")
-    f.close()
+      # create input file
+      f = open(folderPath + '/' + 'input.txt', "w+")
+      f.close()
+      # create output file
+      f = open(folderPath + '/' + 'output.txt', "w+")
     print(colored.cyan('Files have been created'))

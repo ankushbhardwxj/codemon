@@ -28,9 +28,9 @@ def template_cpp():
 
 
 def get_filename():
-  fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
+  fileNames = ['A','B','C','D','E','F']
   return fileNames
 
 def get_practice_files():
-  practiceFiles = ['A.cpp','B.cpp','C.cpp']
+  practiceFiles = ['A','B','C']
   return practiceFiles
