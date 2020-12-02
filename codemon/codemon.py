@@ -1,11 +1,11 @@
-#!/usr/local/bin
+#!/usr/bin/python3
 import sys
 import os
 from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
 from codemon.CodemonInit import init
-from codemon.CodemonMeta import template_cpp,get_filename,get_practice_files
+from codemon.CodemonMeta import template_cpp,get_filename, get_practice_files, write_to_file
 
 def main():
   if len(sys.argv) < 2:
@@ -19,11 +19,8 @@ def main():
       if arg == "init":
         if sys.argv[countArg] == '-n':
           file = sys.argv[countArg+1]
-          path = '.'
-          f = open(path + '/' + file + '.cpp',"w+")
           template = template_cpp()
-          f.write(template)
-          f.close()
+          write_to_file(f'{file}.cpp', template)
           print(colored.yellow("Created "+file+'.cpp'))
           break
 
