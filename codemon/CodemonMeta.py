@@ -6,8 +6,8 @@ def template_cpp():
   now = datetime.now()
   # the template for initial code
   template = """/*
-author: @ankingcodes
-created: %s
+  author: @ankingcodes
+  created: %s
 */
 #include<bits/stdc++.h>
 #include<algorithm>
