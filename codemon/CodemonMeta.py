@@ -6,23 +6,23 @@ def template_cpp():
   now = datetime.now()
   # the template for initial code
   template = """/*
-    author: @ankingcodes
-    created: %s
-    */
-    #include<bits/stdc++.h>
-    #include<algorithm>
-    using namespace std;
+author: @ankingcodes
+created: %s
+*/
+#include<bits/stdc++.h>
+#include<algorithm>
+using namespace std;
 
-    #define ll long long
-    #define MOD 1000000000
+#define ll long long
+#define MOD 1000000000
 
-    int main(){
-      ios_base::sync_with_stdio(false);
-      cin.tie(NULL);
-      ll t;
-      return 0;
-      }
-      """ % (now)
+int main(){
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  ll t;
+  return 0;
+}
+""" % (now)
 
   return template
 
