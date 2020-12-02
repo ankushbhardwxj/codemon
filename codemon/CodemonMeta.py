@@ -1,4 +1,6 @@
 from datetime import datetime
+import requests
+from bs4 import BeautifulSoup as beSo
 
 
 def template_cpp():
@@ -27,8 +29,14 @@ int main(){
   return template
 
 
-def get_filename():
-  fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
+def get_filename(contestName):
+  page = requests.get(f"https://codeforces.com/contest/{contestName}/problems")
+  soup = beSo(page.content, 'html.parser')
+  titles = soup.findAll("div", attrs={"class":"title"})
+  fileNames = []
+  for t in titles:
+    if '.' in t.text:
+      fileNames.append(f"{t.text.split('.')[0]}.cpp")
   return fileNames
 
 def get_practice_files():

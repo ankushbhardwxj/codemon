@@ -29,7 +29,7 @@ def main():
 
         else:
           contestName = sys.argv[countArg]
-          fileNames = get_filename()
+          fileNames = get_filename(contestName)
           init(contestName, fileNames)
 
       elif arg == "listen":
