@@ -8,17 +8,15 @@ from codemon.CodemonInit import init
 from codemon.CodemonMeta import template_cpp,get_filename,get_practice_files
 
 def main():
-
   if len(sys.argv) < 2:
     showHelp()
 
   else:
-    countArg = 0;
+    countArg = 0
     for arg in sys.argv:
-      countArg+=1;
+      countArg+=1
 
       if arg == "init":
-
         if sys.argv[countArg] == '-n':
           file = sys.argv[countArg+1]
           path = '.'
@@ -27,7 +25,7 @@ def main():
           f.write(template)
           f.close()
           print(colored.yellow("Created "+file+'.cpp'))
-          break;
+          break
 
         else:
           contestName = sys.argv[countArg]
@@ -41,3 +39,7 @@ def main():
         contestName = sys.argv[countArg]
         practiceFiles = get_practice_files()
         init(contestName, practiceFiles)
+
+      elif arg == "--help":
+        showHelp()
+        break
