@@ -14,7 +14,7 @@ Note: Codemon currently supports C++ only.
 
 <br>
 <p align="center">
-  <img src="code2.gif" height="700" width="1000">
+  <img src="code2.gif" height="600" width="900">
 </p>
 <br>
 
