@@ -12,7 +12,7 @@ during a contest.
 
 Note: Codemon currently supports C++ only. 
 
-![](code.gif)
+![](code2.gif)
 
 ## How to install ?
 #### Make sure you have pip, python and setuptools installed.
