@@ -12,7 +12,11 @@ during a contest.
 
 Note: Codemon currently supports C++ only. 
 
-![](code2.gif)
+<br>
+<p align="center">
+  <img src="code2.gif" height="600" width="900">
+</p>
+<br>
 
 ## How to install ?
 #### Make sure you have pip, python and setuptools installed.
