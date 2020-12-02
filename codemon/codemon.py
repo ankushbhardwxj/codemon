@@ -1,13 +1,14 @@
-#!/usr/local/bin
+#!/usr/bin/python3
 import sys
 import os
 from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
 from codemon.CodemonInit import init
-from codemon.CodemonMeta import template_cpp,get_filename,get_practice_files
+from codemon.CodemonMeta import template_cpp,get_filenames,get_practice_files
 
 def main():
+
   if len(sys.argv) < 2:
     showHelp()
 
@@ -17,6 +18,7 @@ def main():
       countArg+=1
 
       if arg == "init":
+
         if sys.argv[countArg] == '-n':
           file = sys.argv[countArg+1]
           path = '.'
@@ -29,7 +31,7 @@ def main():
 
         else:
           contestName = sys.argv[countArg]
-          fileNames = get_filename()
+          fileNames = get_filenames()
           init(contestName, fileNames)
 
       elif arg == "listen":
@@ -39,7 +41,3 @@ def main():
         contestName = sys.argv[countArg]
         practiceFiles = get_practice_files()
         init(contestName, practiceFiles)
-
-      elif arg == "--help":
-        showHelp()
-        break
