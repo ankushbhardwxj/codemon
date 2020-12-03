@@ -4,8 +4,7 @@ import os
 from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
-from codemon.CodemonInit import init
-from codemon.CodemonInitJava import initjava
+from codemon.CodemonInit import init, initjava
 from codemon.CodemonMeta import template_cpp, get_filename, get_practice_files, template_java, get_filename_java, get_practice_files_java
 
 
@@ -16,51 +15,52 @@ def main():
 
   else:
     countArg = 0;
+    isCppFile = False
+    isJavaFile = False
+    isSingleFile = False
+    toInit = False
+    toListen = False
+    toPractice = False
+    targetFile = ""
+    # get all arguments and flags
     for arg in sys.argv:
       countArg+=1;
-
       if arg == "init":
-        if sys.argv[countArg] == '-cpp':
-          if sys.argv[countArg] == '-n':
-            file = sys.argv[countArg+1]
-            path = '.'
-            f = open(path + '/' + file + '.cpp',"w+")
-            template = template_cpp()
-            f.write(template)
-            f.close()
-            print(colored.yellow("Created "+file+'.cpp'))
-            break;
-
-          else:
-            contestName = sys.argv[countArg]
-            fileNames = get_filename()
-            init(contestName, fileNames)
-
-        elif sys.argv[countArg] == '-java':
-          
-          if sys.argv[countArg] == '-n':
-            file = sys.argv[countArg+1]
-            path = '.'
-            f = open(path + '/' + file + '.java',"w+")
-            template = template_java()
-            f.write(template)
-            f.close()
-            print(colored.yellow("Created "+file+'.java'))
-            break;
-          else:
-            contestName = sys.argv[countArg]
-            fileNames = get_filename_java()
-            initjava(contestName, fileNames)
-
+        toInit = True
+      elif arg == "-cpp":
+        isCppFile = True
+      elif arg == "-java":
+        isJavaFile = True
+      elif arg == "-n":
+        isSingleFile = True
       elif arg == "listen":
-        listen()
-
+        isListen = True
       elif arg == "practice":
-        if sys.argv[countArg] == '-cpp':
-          contestName = sys.argv[countArg]
-          practiceFiles = get_practice_files()
-          init(contestName, practiceFiles)
-        elif sys.argv[countArg] == '-java':
-          contestName = sys.argv[countArg]
-          practiceFiles = get_practice_files_java()
-          initjava(contestName, practiceFiles)
+        toPractice = True
+      else:
+        targetFile = arg
+
+    # based on booleans perform action
+    if toListen == True:
+      listen()
+      
+    elif toInit == True:
+      if isJavaFile == True and isSingleFile == False:
+        extension = ".java" # we can also pass it directly in function
+        path = "."
+        # create that directory with that given name (targetFile)
+        createTargetDirectory(path, template_java, targetFile, extension)
+
+      elif isJavaFile == True and isSingleFile == True:
+        # extension & path passed directly here
+        createTargetFile('.', template_cpp, targetFile, 'java') 
+      
+      elif isCppFile == True and isSingleFile == False:
+        createTargetFile('.', template_cpp, targetFile, 'cpp')
+      
+      elif isCppFile == True and isSingleFile == False:
+        extension = ".cpp" # for c++
+        path = "."
+        createTargetDirectory(path, template_cpp, targetFile, extension)
+
+    print(colored.green("Option processed and complete!"))
