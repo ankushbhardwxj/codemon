@@ -33,7 +33,7 @@ def initjava(contestName,fileNames):
     print("Failed! This directory already exists.")
   else:
     print(colored.yellow('Directory is made'))
-    # create files for contest (should be 6 cpp files)
+    # create files for contest (should be 6 java files)
     for files in range(len(fileNames)):
       f = open(path + '/' + contestName + '/' + fileNames[files],"w+")
       template = template_java()

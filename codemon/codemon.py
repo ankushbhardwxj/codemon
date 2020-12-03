@@ -43,24 +43,36 @@ def main():
     # based on booleans perform action
     if toListen == True:
       listen()
-      
+
     elif toInit == True:
       if isJavaFile == True and isSingleFile == False:
-        extension = ".java" # we can also pass it directly in function
-        path = "."
-        # create that directory with that given name (targetFile)
-        createTargetDirectory(path, template_java, targetFile, extension)
+        name = input("Enter Contest Name:")
+        files = ['A.java', 'B.java', 'C.java', 'D.java', 'E.java', 'F.java']
+        initjava(name, files)
 
       elif isJavaFile == True and isSingleFile == True:
         # extension & path passed directly here
-        createTargetFile('.', template_cpp, targetFile, 'java') 
+        fileName = input("Enter filename:")
+        dirName = input("Enter directory: ")
+        initjava(dirName, fileName+'.java')
       
       elif isCppFile == True and isSingleFile == False:
-        createTargetFile('.', template_cpp, targetFile, 'cpp')
-      
-      elif isCppFile == True and isSingleFile == False:
-        extension = ".cpp" # for c++
-        path = "."
-        createTargetDirectory(path, template_cpp, targetFile, extension)
+        name = input("Enter Contest Name:")
+        files = ['A.cpp', 'B.cpp', 'C.cpp', 'D.cpp', 'E.cpp', 'F.cpp']
+        init(name, files)
 
-    print(colored.green("Option processed and complete!"))
+      elif isCppFile == True and isSingleFile == True:
+        # extension & path passed directly here
+        fileName = input("Enter filename:")
+        dirName = input("Enter directory: ")
+        init(dirName, fileName+'.cpp')
+
+      elif isCppFile == True and toPractice == True:
+        name = input("Enter Contest Name:")
+        practiceFiles = ['A.cpp', 'B.cpp', 'C.cpp']
+        init(name, practiceFiles)
+
+      elif isJavaFile == True and toPractice == True:
+        name = input("Enter Contest Name:")
+        practiceFiles = ['A.java', 'B.java', 'C.java']
+        initjava(name, practiceFiles)
