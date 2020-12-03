@@ -46,33 +46,35 @@ def main():
 
     elif toInit == True:
       if isJavaFile == True and isSingleFile == False:
-        name = input("Enter Contest Name:")
-        files = ['A.java', 'B.java', 'C.java', 'D.java', 'E.java', 'F.java']
+        name = input("Enter Contest Name: ")
+        files = get_filename_java()
         initjava(name, files)
 
       elif isJavaFile == True and isSingleFile == True:
         # extension & path passed directly here
-        fileName = input("Enter filename:")
+        fileName = input("Enter filename: ")
         dirName = input("Enter directory: ")
-        initjava(dirName, fileName+'.java')
+        file = [fileName + '.java']
+        initjava(dirName, file)
       
       elif isCppFile == True and isSingleFile == False:
-        name = input("Enter Contest Name:")
-        files = ['A.cpp', 'B.cpp', 'C.cpp', 'D.cpp', 'E.cpp', 'F.cpp']
+        name = input("Enter Contest Name: ")
+        files = get_filename()
         init(name, files)
 
       elif isCppFile == True and isSingleFile == True:
         # extension & path passed directly here
-        fileName = input("Enter filename:")
+        fileName = input("Enter filename: ")
         dirName = input("Enter directory: ")
-        init(dirName, fileName+'.cpp')
+        file = [fileName + '.cpp']
+        init(dirName, file)
 
       elif isCppFile == True and toPractice == True:
-        name = input("Enter Contest Name:")
-        practiceFiles = ['A.cpp', 'B.cpp', 'C.cpp']
+        name = input("Enter Contest Name: ")
+        practiceFiles = get_practice_files()
         init(name, practiceFiles)
 
       elif isJavaFile == True and toPractice == True:
-        name = input("Enter Contest Name:")
-        practiceFiles = ['A.java', 'B.java', 'C.java']
+        name = input("Enter Contest Name: ")
+        practiceFiles = get_practice_files_java()
         initjava(name, practiceFiles)

@@ -148,6 +148,7 @@ def template_java():
         static BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
         public static void main(String args[])throws IOException
         {
+            //Write content here
             /*
             * For integer input: int n=inputInt();
             * For long input: long n=inputLong();
@@ -194,7 +195,7 @@ def template_java():
 
   return template_java
 
-
+# For C++
 def get_filename():
   fileNames = ['A.cpp','B.cpp','C.cpp','D.cpp','E.cpp','F.cpp']
   return fileNames
