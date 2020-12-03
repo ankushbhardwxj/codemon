@@ -51,9 +51,8 @@ def main():
 
       elif isJavaFile == True and isSingleFile == True:
         # extension & path passed directly here
-        fileName = input("Enter filename: ")
         dirName = input("Enter directory: ")
-        file = [fileName + '.java']
+        file = [targetFile + '.java']
         initjava(dirName, file)
       
       elif isCppFile == True and isSingleFile == False:
@@ -63,9 +62,8 @@ def main():
 
       elif isCppFile == True and isSingleFile == True:
         # extension & path passed directly here
-        fileName = input("Enter filename: ")
         dirName = input("Enter directory: ")
-        file = [fileName + '.cpp']
+        file = [targetFile + '.cpp']
         init(dirName, file)
 
       elif isCppFile == True and toPractice == True:
