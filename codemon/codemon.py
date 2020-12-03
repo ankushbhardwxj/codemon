@@ -10,14 +10,13 @@ from codemon.CodemonMeta import template_cpp, get_filename, get_practice_files, 
 
 
 def main():
-
   if len(sys.argv) < 2:
     showHelp()
 
   else:
-    countArg = 0;
+    countArg = 0
     for arg in sys.argv:
-      countArg+=1;
+      countArg+=1
 
       if arg == "init":
         if sys.argv[countArg] == '-cpp':
@@ -51,6 +50,20 @@ def main():
             contestName = sys.argv[countArg]
             fileNames = get_filename_java()
             initjava(contestName, fileNames)
+        if sys.argv[countArg] == '-n':
+          file = sys.argv[countArg+1]
+          path = '.'
+          f = open(path + '/' + file + '.cpp',"w+")
+          template = template_cpp()
+          f.write(template)
+          f.close()
+          print(colored.yellow("Created "+file+'.cpp'))
+          break
+
+        else:
+          contestName = sys.argv[countArg]
+          fileNames = get_filename()
+          init(contestName, fileNames)
 
       elif arg == "listen":
         listen()
@@ -64,3 +77,10 @@ def main():
           contestName = sys.argv[countArg]
           practiceFiles = get_practice_files_java()
           initjava(contestName, practiceFiles)
+        contestName = sys.argv[countArg]
+        practiceFiles = get_practice_files()
+        init(contestName, practiceFiles)
+
+      elif arg == "--help":
+        showHelp()
+        break

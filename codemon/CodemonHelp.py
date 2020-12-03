@@ -1,4 +1,5 @@
 from clint.textui import colored
+import os
 
 def showHelp():
   print("           ---CODEMON---          ")
@@ -10,3 +11,4 @@ def showHelp():
   print(colored.yellow("codemon init <args> -n <file>  - - - - - - - creates file with given name in CPP/Java format"))
   print(colored.yellow("codemon listen  - - - - - - - - - - - compiles and gives output"))
   print(colored.yellow("codemon practice <args> <dirName>  - - - - - starts a practice session"))
+  print(colored.green("           ---CODEMON---          "))
