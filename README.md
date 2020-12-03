@@ -10,9 +10,13 @@ during a contest.
 
 #### Codemon takes care of everything else so that you only focus on writing correct code and implementing complex algorithms.
 
-Note: Codemon currently supports C++ only. 
+Note: Codemon currently supports C++ only.
 
-![](code.gif)
+<br>
+<p align="center">
+  <img src="code2.gif" height="600" width="900">
+</p>
+<br>
 
 ## How to install ?
 #### Make sure you have pip, python and setuptools installed.
