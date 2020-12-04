@@ -6,7 +6,7 @@ def showHelp():
   print(colored.cyan("\nCOMMANDS: \n"))
   print("codemon - - - - - - - - - - - - - - -  displays this message")
   print("codemon --help - - - - - - - - - - - - shows help")
-  print("codemon init <args> - - - - - - initialises a contest")
+  print("codemon init <args> - - - - - - initialises a contest with required format")
   print("codemon init -n <args> <file> - - - - - - - - creates file with given name")
   print("codemon listen - - - - - - - - - - - - compiles and gives output")
   print("codemon practice <args> - - - - - - Starts a practice session")

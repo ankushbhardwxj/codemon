@@ -1,6 +1,6 @@
 import os
 from clint.textui import colored
-from codemon.CodemonMeta import template_cpp
+from codemon.CodemonMeta import template_cpp, template_java
 
 def write_to_file(filename, text, contestName=None):
   full_filename = os.path.join(os.getcwd(), filename)
