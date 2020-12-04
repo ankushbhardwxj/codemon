@@ -1,4 +1,4 @@
-#!/usr/local/bin
+#!/usr/bin/python3
 import sys
 import os
 from clint.textui import colored
@@ -6,7 +6,6 @@ from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
 from codemon.CodemonInit import init, initjava
 from codemon.CodemonMeta import template_cpp, get_filename, get_practice_files, template_java, get_filename_java, get_practice_files_java
-
 
 def main():
   if len(sys.argv) < 2:
@@ -70,8 +69,15 @@ def main():
         name = input("Enter Contest Name: ")
         practiceFiles = get_practice_files()
         init(name, practiceFiles)
-
       elif isJavaFile == True and toPractice == True:
         name = input("Enter Contest Name: ")
         practiceFiles = get_practice_files_java()
         initjava(name, practiceFiles)
+      elif arg == "--help":
+        showHelp()
+        break
+
+def init_single_file(filename, template='\n'):
+  full_filename = os.path.join(os.getcwd(), filename)
+  with open(full_filename, 'w+') as f:
+    f.write(template)

@@ -1,9 +1,9 @@
 from clint.textui import colored
 
 def showHelp():
-  print("           ---CODEMON---          ")
+  print(colored.green("           ---CODEMON---          "))
   print(colored.cyan("  a CLI tool for competitive coders"))
-  print("\nCOMMANDS: \n")
+  print(colored.cyan("\nCOMMANDS: \n"))
   print(colored.yellow("codemon - - - - - - - - - - - - - - - shows help"))
   print(colored.yellow("codemon init <args>  - - - - - initialises a contest directory using format given in options"))
   print(colored.yellow("codemon init <args> -n <name> - - - - - - - creates file using format given in options"))
