@@ -1,6 +1,13 @@
 import os
 from clint.textui import colored
-from codemon.CodemonMeta import template_cpp, write_to_file
+from codemon.CodemonMeta import template_cpp
+
+def write_to_file(filename, text, contestName=None):
+  full_filename = os.path.join(os.getcwd(), filename)
+  if contestName is not None:
+    full_filename = os.path.join(os.getcwd(), contestName, filename)
+  with open(full_filename, 'w+') as f:
+    f.write(text)
 
 def init(contestName,fileNames):
   # create a directory with contest name

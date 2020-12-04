@@ -5,7 +5,7 @@ from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
 from codemon.CodemonInit import init
-from codemon.CodemonMeta import template_cpp,get_filename, get_practice_files, write_to_file
+from codemon.CodemonMeta import template_cpp,get_filename, get_practice_files
 
 def main():
   if len(sys.argv) < 2:
@@ -18,10 +18,10 @@ def main():
 
       if arg == "init":
         if sys.argv[countArg] == '-n':
-          file = sys.argv[countArg+1]
+          fileName = sys.argv[countArg+1]
           template = template_cpp()
-          write_to_file(f'{file}.cpp', template)
-          print(colored.yellow("Created "+file+'.cpp'))
+          init_single_file(f'{fileName}.cpp', template)
+          print(colored.yellow(f'Created {fileName}.cpp'))
           break
 
         else:
@@ -40,3 +40,8 @@ def main():
       elif arg == "--help":
         showHelp()
         break
+
+def init_single_file(filename, template='\n'):
+  full_filename = os.path.join(os.getcwd(), filename)
+  with open(full_filename, 'w+') as f:
+    f.write(template)
