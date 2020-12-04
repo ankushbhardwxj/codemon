@@ -69,7 +69,7 @@ def compile_and_run(filename):
     print(colored.yellow('Taking input from input.txt.'))
     execution_child_process.stdin.write(input_text.encode(encoding='utf-8'))
   else:
-    print(colored.yellow('input.txt is empty.\nSkipping input.'))
+    print(colored.yellow('Skipped fetching inputs as input file is empty.'))
   output = execution_child_process.communicate()
   if len(output) > 0:
     print(output[0].decode())
