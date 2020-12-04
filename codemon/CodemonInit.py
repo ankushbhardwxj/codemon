@@ -45,3 +45,11 @@ def initjava(contestName,fileNames):
     f = open(path + '/' + contestName + '/' + "input.txt","w+")
     f.close()
     print(colored.cyan('Files have been created'))
+
+def write_to_file_single(filename, text, contestName=None):
+  full_filename = os.path.join(os.getcwd(), filename)
+  if contestName is not None:
+    full_filename = os.path.join(os.getcwd(), contestName, filename)
+  with open(full_filename, 'w+') as f:
+    f.write(text)
+  print(colored.magenta('File created successfully!'))

@@ -4,7 +4,7 @@ import os
 from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
-from codemon.CodemonInit import init, initjava
+from codemon.CodemonInit import init, initjava, write_to_file_single
 from codemon.CodemonMeta import template_cpp, get_filename, get_practice_files, template_java, get_filename_java, get_practice_files_java
 
 def main():
@@ -49,10 +49,9 @@ def main():
         initjava(name, files)
 
       elif isJavaFile == True and isSingleFile == True:
-        # extension & path passed directly here
-        dirName = input("Enter directory: ")
-        file = [targetFile + '.java']
-        initjava(dirName, file)
+        file = targetFile + '.java'
+        text = template_java()
+        write_to_file_single(file, text)
       
       elif isCppFile == True and isSingleFile == False:
         name = input("Enter Contest Name: ")
@@ -60,24 +59,16 @@ def main():
         init(name, files)
 
       elif isCppFile == True and isSingleFile == True:
-        # extension & path passed directly here
-        dirName = input("Enter directory: ")
-        file = [targetFile + '.cpp']
-        init(dirName, file)
+        file = targetFile + '.cpp'
+        text = template_cpp()
+        write_to_file_single(file, text)
 
-      elif isCppFile == True and toPractice == True:
+    elif isCppFile == True and toPractice == True:
         name = input("Enter Contest Name: ")
         practiceFiles = get_practice_files()
         init(name, practiceFiles)
-      elif isJavaFile == True and toPractice == True:
-        name = input("Enter Contest Name: ")
-        practiceFiles = get_practice_files_java()
-        initjava(name, practiceFiles)
-      elif arg == "--help":
-        showHelp()
-        break
-
-def init_single_file(filename, template='\n'):
-  full_filename = os.path.join(os.getcwd(), filename)
-  with open(full_filename, 'w+') as f:
-    f.write(template)
+      
+    elif isJavaFile == True and toPractice == True:
+      name = input("Enter Contest Name: ")
+      practiceFiles = get_practice_files_java()
+      initjava(name, practiceFiles)
