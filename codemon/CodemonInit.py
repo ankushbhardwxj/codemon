@@ -6,8 +6,26 @@ def write_to_file(filename, text, contestName=None):
   full_filename = os.path.join(os.getcwd(), filename)
   if contestName is not None:
     full_filename = os.path.join(os.getcwd(), contestName, filename)
-  with open(full_filename, 'w+') as f:
-    f.write(text)
+
+    os.makedirs(full_filename)
+    
+    cppFile = full_filename + '/' + filename + '.cpp'
+    f = open(cppFile,"w+")
+    template = template_cpp()
+    f.write(template)
+
+    inpFile = full_filename + '/' + filename + '.in'
+    f = open(inpFile,"w+")
+    outFile = full_filename + '/' + filename + '.op'
+    f = open(outFile,"w+")
+
+    cppTest = full_filename + '/' + 'test_case.cpp'
+    f = open(cppTest,"w+")
+    inpTest = full_filename + '/' + 'test_case.in'
+    f = open(inpTest,"w+")
+    outTest = full_filename + '/' + 'test_case.out'
+    f = open(outTest,"w+")
+
 
 def init(contestName,fileNames):
   # create a directory with contest name
@@ -22,5 +40,4 @@ def init(contestName,fileNames):
     for files in range(len(fileNames)):
       write_to_file(fileNames[files], template_cpp(), contestName)
     # create input file
-    write_to_file('input.txt', '', contestName)
     print(colored.cyan('Files have been created'))
