@@ -1,5 +1,5 @@
+from clint.textui import colored
 from datetime import datetime
-
 
 def template_cpp():
   # get the current time

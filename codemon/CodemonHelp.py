@@ -1,5 +1,4 @@
 from clint.textui import colored
-import os
 
 def showHelp():
   print(colored.green("           ---CODEMON---          "))
