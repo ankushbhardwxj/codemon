@@ -39,7 +39,7 @@ def main():
         targetFile = arg
 
     # based on booleans perform action
-    if toListen == True:
+    if isListen == True:
       listen()
 
     elif toInit == True:
