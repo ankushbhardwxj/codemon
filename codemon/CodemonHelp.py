@@ -5,7 +5,6 @@ def showHelp():
   print(colored.green("           ---CODEMON---          "))
   print("A CLI tool to ace competitive programming contests")
   print(colored.cyan("\nCOMMANDS: \n"))
-  print("codemon - - - - - - - - - - - - - - -  shows help")
   print("codemon --help - - - - - - - - - - - - shows help")
   print("codemon init <contestName> - - - - - - initialises a contest")
   print("codemon init -n <file> - - - - - - - - creates file with given name")
