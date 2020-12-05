@@ -1,8 +1,8 @@
 import os
-from pathlib import Path
 import subprocess
 import sys
 import time
+from pathlib import Path
 from clint.textui import colored
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
