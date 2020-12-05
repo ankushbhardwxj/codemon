@@ -27,23 +27,29 @@ def fetch_tests(contest_name):
     load_page = requests.get(f"https://codeforces.com/contest/{contest_name}/problems")
     soup = beSo(load_page.content, 'html.parser')
     tests = soup.findAll("div", attrs={"class":"sample-tests"})
-    file_list = list(map(lambda x: x.split('.')[0], get_filename(contest_name)))
-    for file_name, test in tqdm(zip(file_list, tests), unit="ticks", desc="Fetching Sample test cases", 
-                                total=len(tests)):
-      # Make the neccesary folders and files for each source file if not present.
-      make_structure(file_name)
 
-      # Add  inputs to .in files
-      for t in test.findAll("div", attrs={"class":"input"}):
-        i = t.pre.text
-        with open(os.path.join(f'{file_name}' , f'{file_name}.in'), 'a') as f:
-          f.write(i)
+    if(len(tests) == 0):
+      print(colored.red("Wrong contest number provided"))
 
-      # Add outputs to .op files
-      for t in test.findAll("div", attrs={"class":"output"}):
-        o = t.pre.text
-        with open(os.path.join(f'{file_name}' , f'{file_name}.op'), 'a') as f:
-          f.write(o)
+    else:
+      # Get the file names to scrape test cases for.
+      file_list = list(map(lambda x: x.split('.')[0], get_filename(contest_name)))
+      for file_name, test in tqdm(zip(file_list, tests), unit="ticks", desc="Fetching Sample test cases", 
+                                  total=len(tests)):
+        # Make the neccesary folders and files for each source file if not present.
+        make_structure(file_name)
+
+        # Add  inputs to .in files
+        for t in test.findAll("div", attrs={"class":"input"}):
+          i = t.pre.text
+          with open(os.path.join(f'{file_name}' , f'{file_name}.in'), 'a') as f:
+            f.write(i)
+
+        # Add outputs to .op files
+        for t in test.findAll("div", attrs={"class":"output"}):
+          o = t.pre.text
+          with open(os.path.join(f'{file_name}' , f'{file_name}.op'), 'a') as f:
+            f.write(o)
 
   # In case of any error with scraping, display warning.
   except:
