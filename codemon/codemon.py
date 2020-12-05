@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 import os
+import re
 from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
@@ -41,6 +42,15 @@ def main():
       elif arg == "--help":
         showHelp()
         break
+      elif arg == "fetch":
+        try:
+          # if User provides contest number as arguement.
+          fetch_tests(sys.argv[countArg])
+        except IndexError:
+          # Extract all numbers from current directory name.
+          contest_number = ''.join(re.findall(r'\d+', os.getcwd().split('/')[-1]))
+          fetch_tests(contest_number)
+
 
 def init_single_file(filename, template='\n'):
   full_filename = os.path.join(os.getcwd(), filename)
