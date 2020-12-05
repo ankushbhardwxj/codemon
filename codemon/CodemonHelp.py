@@ -10,3 +10,5 @@ def showHelp():
   print("codemon init -n <file> - - - - - - - - creates file with given name")
   print("codemon listen - - - - - - - - - - - - compiles and gives output")
   print("codemon practice <dirName> - - - - - - Starts a practice session")
+  print("codemon practice <dirName> - - - - - - Starts a practice session")
+  print("codemon reg - - - - - - - - - - - - -  Creates a file with all your details")
