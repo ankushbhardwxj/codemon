@@ -1,8 +1,10 @@
 import requests
 import os
+from tqdm import tqdm
 from bs4 import BeautifulSoup as beSo
 import itertools
 from clint.textui import colored
+from codemon.CodemonMeta import get_filename
 
 def make_structure(name):
   basedir = os.getcwd()
@@ -25,9 +27,9 @@ def fetch_tests(contest_name):
     load_page = requests.get(f"https://codeforces.com/contest/{contest_name}/problems")
     soup = beSo(load_page.content, 'html.parser')
     tests = soup.findAll("div", attrs={"class":"sample-tests"})
-    name_list = ['A', 'B', 'C', 'D', 'E', 'F']
-
-    for file_name, test in zip(name_list, tests):
+    file_list = list(map(lambda x: x.split('.')[0], get_filename(contest_name)))
+    for file_name, test in tqdm(zip(file_list, tests), unit="ticks", desc="Fetching Sample test cases", 
+                                total=len(tests)):
       # Make the neccesary folders and files for each source file if not present.
       make_structure(file_name)
 
