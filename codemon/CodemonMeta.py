@@ -1,4 +1,5 @@
 import re
+from tqdm import tqdm
 from clint.textui import colored
 from datetime import datetime
 import requests
