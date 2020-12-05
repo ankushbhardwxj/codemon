@@ -18,8 +18,8 @@ def make_structure(name):
     open(os.path.join(f'{name}',f'{name}.in'), 'w').close()
 
   # Check if output file exists for the given name if not make it. 
-  if not  os.path.exists(os.path.join(basedir, os.path.join(f'{name}', f'{name}.out'))):
-    open(os.path.join(f'{name}', f'{name}.out'), 'w').close()
+  if not  os.path.exists(os.path.join(basedir, os.path.join(f'{name}', f'{name}.op'))):
+    open(os.path.join(f'{name}', f'{name}.op'), 'w').close()
 
 
 def fetch_tests(contest_name):
@@ -39,10 +39,10 @@ def fetch_tests(contest_name):
         with open(os.path.join(f'{file_name}' , f'{file_name}.in'), 'a') as f:
           f.write(i)
 
-      # Add outputs to .out files
+      # Add outputs to .op files
       for t in test.findAll("div", attrs={"class":"output"}):
         o = t.pre.text
-        with open(os.path.join(f'{file_name}' , f'{file_name}.out'), 'a') as f:
+        with open(os.path.join(f'{file_name}' , f'{file_name}.op'), 'a') as f:
           f.write(o)
 
   # In case of any error with scraping, display warning.
