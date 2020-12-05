@@ -6,6 +6,7 @@ from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
 from codemon.CodemonInit import init
 from codemon.CodemonMeta import template_cpp,get_filename, get_practice_files
+from codemon.CodemonFetch import fetch_tests, make_structure
 
 def main():
   if len(sys.argv) < 2:
