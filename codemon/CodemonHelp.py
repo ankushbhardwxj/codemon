@@ -9,4 +9,5 @@ def showHelp():
   print("codemon init <contestName> - - - - - - initialises a contest")
   print("codemon init -n <file> - - - - - - - - creates file with given name")
   print("codemon listen - - - - - - - - - - - - compiles and gives output")
+  print("codemon reg - - - - - - - - - - - - -  Register user details")
   print("codemon practice <dirName> - - - - - - Starts a practice session")
