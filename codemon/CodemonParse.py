@@ -1,7 +1,7 @@
 # Parse all command line arguments and options.
 
 
-class Commands:
+class Parser:
 
   def __init__(self):
     self.to_listen = False
@@ -12,6 +12,7 @@ class Commands:
                                              "to_fetch":False }
     self.single_file_name = ""
     self.contest_name = ""
+    self.to_fetch = False
 
   def parse(self, arg_list):
     countArg = 0
@@ -28,6 +29,8 @@ class Commands:
         self.to_practice = True
       elif arg_list[countArg] == "--help":
         self.help = True
+      elif arg_list[countArg] == "fetch":
+        self.to_fetch = True
 
     # Commands with several arguments, options or flags can be added here.
     else:
@@ -41,6 +44,7 @@ class Commands:
               self.init_flags["is_py"] = True
             elif(arg_list[countArg+3] == "-java"):
               self.init_flags["is_java"] = True
+
         elif arg_list[countArg+1] in ("-f", "--fetch"):
           self.contest_name += arg_list[countArg + 2]
           self.init_flags["to_fetch"] = True
@@ -57,3 +61,7 @@ class Commands:
               self.init_flags["is_py"] = True
             elif(arg_list[countArg+2] == "-java"):
               self.init_flags["is_java"] = True
+
+      elif arg_list[countArg] == "fetch":
+        self.to_fetch = True
+        self.contest_name += arg_list[countArg + 1]
