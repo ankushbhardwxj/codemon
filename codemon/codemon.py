@@ -5,6 +5,7 @@ from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
 from codemon.CodemonInit import init
+from codemon.CodemonReg import codemonReg
 from codemon.CodemonMeta import template_cpp,get_filename, get_practice_files
 
 def main():
@@ -39,6 +40,10 @@ def main():
 
       elif arg == "--help":
         showHelp()
+        break
+
+      elif arg == "reg":
+        codemonReg()
         break
 
 def init_single_file(filename, template='\n'):

@@ -14,7 +14,7 @@ def init(contestName,fileNames):
   try:
     print(colored.green('Make some files and folders for ' + colored.magenta(contestName)))
     os.makedirs(os.path.join(os.getcwd(), contestName))
-  except OSError: 
+  except OSError:
     print("Failed! This directory cannot be created.")
   else:
     print(colored.yellow('Directory is made'))
