@@ -1,7 +1,11 @@
 from clint.textui import colored
 
 def showHelp():
-  print(colored.green("           ---CODEMON---          "))
+  print(colored.green("""  _________  ___  ______  _______  _  __
+ / ___/ __ \/ _ \/ __/  |/  / __ \/ |/ /
+/ /__/ /_/ / // / _// /|_/ / /_/ /    / 
+\___/\____/____/___/_/  /_/\____/_/|_/  
+                                        """))
   print("A CLI tool to ace competitive programming contests")
   print(colored.cyan("\nCOMMANDS: \n"))
   print("codemon - - - - - - - - - - - - - - -  displays this message")
