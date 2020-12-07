@@ -9,8 +9,7 @@ setup(
     'watchdog',
     'clint',
     'requests',
-    'bs4',
-    'tqdm'
+    'bs4'
   ],
   entry_points={
     'console_scripts': [
