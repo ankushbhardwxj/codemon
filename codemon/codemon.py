@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 import sys
 import os
+import re
 from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
 from codemon.CodemonInit import init
 from codemon.CodemonReg import codemonReg
 from codemon.CodemonMeta import template_cpp,get_filename, get_practice_files
+from codemon.CodemonFetch import fetch_tests, make_structure
 
 def main():
   if len(sys.argv) < 2:
@@ -27,7 +29,7 @@ def main():
 
         else:
           contestName = sys.argv[countArg]
-          fileNames = get_filename()
+          fileNames = get_filename(contestName)
           init(contestName, fileNames)
 
       elif arg == "listen":
@@ -41,6 +43,15 @@ def main():
       elif arg == "--help":
         showHelp()
         break
+      elif arg == "fetch":
+        try:
+          # if User provides contest number as arguement.
+          fetch_tests(sys.argv[countArg])
+        except IndexError:
+          # Extract all numbers from current directory name.
+          contest_number = ''.join(re.findall(r'\d+', os.getcwd().split('/')[-1]))
+          fetch_tests(contest_number)
+
 
       elif arg == "reg":
         codemonReg()
