@@ -8,7 +8,7 @@ setup(
   install_requires=[
     'watchdog',
     'clint',
-    'stdiomask'
+    'stdiomask', 
     'requests',
     'bs4',
     'tqdm'
