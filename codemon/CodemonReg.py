@@ -22,9 +22,9 @@ def codemonReg():
     print("\nPlease enter the following data.\nYour sensitive information is collected for making your life easier while using Codemon.\nIt will be stored on your local machine.\nIt won't be stored or used by Codemon developers for any purpose. ")
     name = input("\nEnter Name : ")
     codeforces_username = input("Codeforces username (without @) : ")
-    codeforces_password = stdiomask.getpass(prompt="Codeforces password (not shown): ")
+    codeforces_password = stdiomask.getpass(prompt="Codeforces password : ")
     github_username = input("Github username (without @) : ")
-    github_password = stdiomask.getpass(prompt="GitHub Password (not shown): ")
+    github_password = stdiomask.getpass(prompt="GitHub Password : ")
     dataDict = {}
     dataDict["name"] = name
     dataDict["codeforces_username"] = codeforces_username
