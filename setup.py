@@ -10,8 +10,7 @@ setup(
     'clint',
     'stdiomask', 
     'requests',
-    'bs4',
-    'tqdm'
+    'bs4'
   ],
   entry_points={
     'console_scripts': [
