@@ -35,7 +35,7 @@ def listen():
 def isModified(event):
   filename = os.path.basename(event.src_path)
   foldername = os.path.basename(os.getcwd())
-  if filename != foldername and filename != "prog" and filename != "input.txt": 
+  if filename not in (foldername, 'prog', 'input.txt'): 
     print(colored.yellow('\nChange made at '+ filename))
     print(colored.cyan('\nCompiling '+ filename))
     compile_and_run(filename)
@@ -50,7 +50,7 @@ def compile_and_run(filename):
   if not Path(full_filename).is_file():
     print(f"{filename} doesn't exist.", file=sys.stderr)
   if not Path(full_input_filename).is_file():
-    print(f"'input.txt' doesn't exist.", file=sys.stderr)
+    print("'input.txt' doesn't exist.", file=sys.stderr)
 
   compilation_child_process = subprocess.Popen(['g++', full_filename, '-o', full_output_filename], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
   compilation_child_process.wait()
