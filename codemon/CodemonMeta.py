@@ -1,8 +1,8 @@
 import re
 import os
+import requests
 from clint.textui import colored
 from datetime import datetime
-import requests
 from bs4 import BeautifulSoup as beSo
 
 class Templates:
@@ -62,25 +62,28 @@ int main() {
     return template
 
 
-def get_filename(contesName):
+def get_filename(contestName):
   fileNames = []
-  contest_number = ''.join(re.findall(r'\d+', contesName))
+  contest_number = ''.join(re.findall(r'\d+', contestName))
   # In case contest number is not there, initialize a generic A, B, C, D, E, F
   if(not len(contest_number)):
     fileNames = ['A','B','C','D','E','F', 'G']
   else:
-    page = requests.get(f"https://codeforces.com/contest/{contest_number}/problems")
-    soup = beSo(page.content, 'html.parser')
-    titles = soup.findAll("div", attrs={"class":"title"})
-    if titles[0].a:
-      # In case contest number is wrong, initialize a generic A, B, C, D, E, F
-      fileNames = ['A','B','C','D','E','F','G']
-    else:
-      # Scrape Codeforces problem page and get the exact problem names
-      for t in titles:
-        if '.' in t.text:
-          fileNames.append(f"{t.text.split('.')[0]}")
-
+    try:
+      page = requests.get(f"https://codeforces.com/contest/{contest_number}/problems")
+      soup = beSo(page.content, 'html.parser')
+      titles = soup.findAll("div", attrs={"class":"title"})
+      if titles[0].a:
+        # In case contest number is wrong, initialize a generic A, B, C, D, E, F
+        fileNames = ['A','B','C','D','E','F','G']
+      else:
+        # Scrape Codeforces problem page and get the exact problem names
+        for t in titles:
+          if '.' in t.text:
+            fileNames.append(f"{t.text.split('.')[0]}")
+    # In case of an error initialize default directory.
+    except:
+      fileNames = ['A','B','C','D','E','F', 'G']
   return fileNames
 
 def get_practice_files():
