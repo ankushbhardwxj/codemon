@@ -1,4 +1,5 @@
 # Parse all command line arguments and options.
+import re
 
 
 class Parser:
@@ -10,10 +11,9 @@ class Parser:
     self.to_init, self.init_flags = False, { "is_single": False, "is_cpp":True,
                                              "is_java":False, "is_py":False,
                                              "to_fetch":False }
-    self.single_file_name = ""
-    self.contest_name = ""
     self.to_fetch = False
     self.Reg = False
+    self.name = ""
 
   def parse(self, arg_list):
     countArg = 0
@@ -22,49 +22,41 @@ class Parser:
     if len(arg_list) == 0:
       self.help = True
 
-    # Commands with one argument can be added here.
-    elif len(arg_list) == 1:
-      if arg_list[countArg] == "listen":
-        self.to_listen = True
-      elif arg_list[countArg] == "practice":
-        self.to_practice = True
-      elif arg_list[countArg] == "--help":
+    # Extract all flags/option
+    flags = list(map(lambda x: x.strip(), re.findall('.\-.\w*', " " + ' '.join(arg_list))))
+
+    # Extract all non flag arguments
+    arguments = [i for i in arg_list if i not in flags]
+
+    for fl in flags:
+      if fl == '-py':
+        self.init_flags["is_py"] = True
+      elif fl == '-java':
+        self.init_flags["is_java"] = True
+      elif fl == '-n':
+        self.init_flags["is_single"] = True
+      elif fl in ("-f", "--fetch"):
+        self.init_flags["to_fetch"] = True
+      elif fl == "--help":
         self.help = True
-      elif arg_list[countArg] == "fetch":
-        self.to_fetch = True
-      elif arg_list[countArg] == "reg":
+
+    for a in arguments:
+
+      if a == "listen":
+        self.to_listen = True
+
+      elif a == "init":
+        self.to_init = True
+
+      elif a == "reg":
         self.Reg = True
 
-    # Commands with several arguments, options or flags can be added here.
-    else:
-      if(arg_list[countArg] == "init"):
-        self.to_init = True
-        if(arg_list[countArg+1] == "-n"):
-          self.init_flags["is_single"] = True
-          self.single_file_name += arg_list[countArg + 2]
-          if len(arg_list[2:]) == 2:
-            if(arg_list[countArg+3] == "-py"):
-              self.init_flags["is_py"] = True
-            elif(arg_list[countArg+3] == "-java"):
-              self.init_flags["is_java"] = True
+      elif a == "practice":
+        self.to_practice = True
 
-        elif arg_list[countArg+1] in ("-f", "--fetch"):
-          self.contest_name += arg_list[countArg + 2]
-          self.init_flags["to_fetch"] = True
-          if len(arg_list[2:]) == 2:
-            if(arg_list[countArg+3] == "-py"):
-              self.init_flags["is_py"] = True
-            elif(arg_list[countArg+3] == "-java"):
-              self.init_flags["is_java"] = True
-
-        else:
-          self.contest_name += arg_list[countArg+1]
-          if len(arg_list[1:]) == 2:
-            if(arg_list[countArg+2] == "-py"):
-              self.init_flags["is_py"] = True
-            elif(arg_list[countArg+2] == "-java"):
-              self.init_flags["is_java"] = True
-
-      elif arg_list[countArg] == "fetch":
+      elif a == "fetch":
         self.to_fetch = True
-        self.contest_name += arg_list[countArg + 1]
+
+      else:
+        self.name += a
+

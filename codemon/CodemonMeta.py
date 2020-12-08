@@ -23,11 +23,11 @@ using namespace std;
 #define ll long long
 #define MOD 1000000000
 
-int main(){
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-ll t;
-return 0;
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  ll t;
+  return 0;
 }
   """ % (now)
 

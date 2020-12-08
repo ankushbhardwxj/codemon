@@ -35,14 +35,14 @@ def listen():
 def isModified(event):
   filename = os.path.basename(event.src_path)
   foldername = os.path.basename(os.getcwd())
-  if filename != foldername and filename != "prog" and filename != "input.txt": 
+  if filename != foldername and filename != "prog" and filename != "test_case": 
     print(colored.yellow('\nChange made at '+ filename))
     print(colored.cyan('\nCompiling '+ filename))
     compile_and_run(filename)
 
 def compile_and_run(filename):
   # Store full file paths
-  full_filename = os.path.join(os.getcwd(), filename)
+  full_filename = os.path.join(os.getcwd(), filename.split('.')[0], filename)
   full_output_filename = os.path.join(os.getcwd(), 'prog')
   full_input_filename = os.path.join(os.getcwd(), 'test_case')
 

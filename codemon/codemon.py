@@ -23,29 +23,27 @@ def main():
     listen()
 
   elif arg.to_practice:
-    contestName = sys.argv[countArg]
+    contestName = arg.name
     practiceFiles = get_practice_files()
-    init(contestName, practiceFiles)
+    init(contestName, practiceFiles, arg.init_flags)
 
   elif arg.to_init:
     if arg.init_flags["is_single"]:
-      fileName = arg.single_file_name
-      template = "\n"
-      init_single_file(f'{fileName}', template)
-      print(colored.yellow(f'Created {fileName}.cpp'))
+      fileName = arg.name
+      init_single_file(f'{fileName}', arg.init_flags)
     else:
-      contestName = arg.contest_name
+      contestName = arg.name
       fileNames = get_filename(contestName)
       init(contestName, fileNames, arg.init_flags)
       if arg.init_flags["to_fetch"]:
         fetch_tests(fileNames, contestName)
   elif arg.to_fetch:
-    if arg.contest_name == "":
+    if arg.name == "":
       contestName = ''.join(re.findall(r'\d+', os.getcwd().split('/')[-1]))
       fileNames = get_filename(contestName)
       fetch_tests(fileNames, contestName)
     else:
-      contestName = arg.contest_name
+      contestName = arg.name
       fileName = get_filename(contestName)
       fetch_tests(fileName, contestName)
   elif arg.Reg:
