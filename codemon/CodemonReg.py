@@ -20,7 +20,7 @@ def codemonReg():
         writeMeta(path)
     else:
         if os.path.exists(os.path.join(path, "meta.json")):
-            print("Meta file already exists.")
+            print("Metafile already exists.")
             overwrite = input("Do you want to overwrite it (y/n)? ")
             if overwrite == 'y':
                 writeMeta(path)
@@ -34,19 +34,19 @@ def writeMeta(path):
     while (name == ''):
         print("No Input Detected")
         name = input("Enter Name : ")
-    codeforces_username = input("\nCodeforces username (without @) : ")
+    codeforces_username = input("Codeforces username (without @) : ")
     while (codeforces_username == ''):
         print("No Input Detected")
         codeforces_username = input("Codeforces username (without @) : ")
-    codeforces_password = stdiomask.getpass(prompt="\nCodeforces password : ")
+    codeforces_password = stdiomask.getpass(prompt="Codeforces password : ")
     while (codeforces_password == ''):
         print("No Input Detected")
         codeforces_password = stdiomask.getpass(prompt="Codeforces password : ")
-    github_username = input("\nGithub username (without @) : ")
+    github_username = input("Github username (without @) : ")
     while (github_username == ''):
         print("No Input Detected")
         github_username = input("Github username (without @) : ")
-    github_password = stdiomask.getpass(prompt="\nGitHub Password : ")
+    github_password = stdiomask.getpass(prompt="GitHub Password : ")
     while (github_password == ''):
         print("No Input Detected")
         github_password = stdiomask.getpass(prompt="GitHub Password : ")
@@ -57,6 +57,8 @@ def writeMeta(path):
     dataDict["github_username"] = github_username
     dataDict["github_password"] = github_password
     dataJson = json.dumps(dataDict, indent=4)
+    print("\n"+dataJson)
+    print("Metafile updated successfully")
     full_filename = os.path.join(path, "meta.json")
     with open(full_filename, 'w+') as f:
         f.write(dataJson)
