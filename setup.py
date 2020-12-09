@@ -8,7 +8,9 @@ setup(
   install_requires=[
     'watchdog',
     'clint',
-    'stdiomask'
+    'stdiomask', 
+    'requests',
+    'bs4'
   ],
   entry_points={
     'console_scripts': [

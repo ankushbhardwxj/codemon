@@ -1,8 +1,8 @@
 import os
-from pathlib import Path
 import subprocess
 import sys
 import time
+from pathlib import Path
 from clint.textui import colored
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
@@ -35,16 +35,16 @@ def listen():
 def isModified(event):
   filename = os.path.basename(event.src_path)
   foldername = os.path.basename(os.getcwd())
-  if filename != foldername and filename != "prog" and filename != "input.txt": 
+  if filename != foldername and filename != "prog" and filename != "test_case": 
     print(colored.yellow('\nChange made at '+ filename))
     print(colored.cyan('\nCompiling '+ filename))
     compile_and_run(filename)
 
 def compile_and_run(filename):
   # Store full file paths
-  full_filename = os.path.join(os.getcwd(), filename)
+  full_filename = os.path.join(os.getcwd(), filename.split('.')[0], filename)
   full_output_filename = os.path.join(os.getcwd(), 'prog')
-  full_input_filename = os.path.join(os.getcwd(), 'input.txt')
+  full_input_filename = os.path.join(os.getcwd(), 'test_case')
 
   # Check if required files exist
   if not Path(full_filename).is_file():
@@ -66,7 +66,7 @@ def compile_and_run(filename):
   with open(full_input_filename, 'r+', encoding='utf-8') as infile:
     input_text = infile.read()
   if len(input_text) > 0 and not input_text.isspace():
-    print(colored.yellow('Taking input from input.txt.'))
+    print(colored.yellow('Taking input from test_case file.'))
     execution_child_process.stdin.write(input_text.encode(encoding='utf-8'))
   else:
     print(colored.yellow('Skipped fetching inputs as input file is empty.'))
