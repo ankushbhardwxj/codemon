@@ -1,7 +1,18 @@
 from clint.textui import colored
 
 def showHelp():
-  print(colored.green("           ---CODEMON---          "))
+
+  print("\n")
+  #Logo font used is ANSI Shadow
+  print(""" ██████╗ ██████╗ ██████╗ ███████╗███╗   ███╗ ██████╗ ███╗   ██╗
+██╔════╝██╔═══██╗██╔══██╗██╔════╝████╗ ████║██╔═══██╗████╗  ██║
+██║     ██║   ██║██║  ██║█████╗  ██╔████╔██║██║   ██║██╔██╗ ██║
+██║     ██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██║   ██║██║╚██╗██║
+╚██████╗╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝██║ ╚████║
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+                                                               """)
+  print("\n")
+  
   print("A CLI tool to ace competitive programming contests")
   print(colored.cyan("\nCOMMANDS: \n"))
   print("codemon - - - - - - - - - - - - - - -  displays this message")
