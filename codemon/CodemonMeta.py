@@ -38,7 +38,24 @@ int main() {
     template="""
 # author: @ankingcodes
 # created: %s
-# Write your code here
+import sys
+input = sys.stdin.readline
+
+#integer inputs
+def inp():
+    return(int(input()))
+#list inputs
+def inlt():
+    return(list(map(int,input().split())))
+#string inputs(returns as list of characters)
+def insr():
+    s = input()
+    return(list(s[:len(s) - 1]))
+#space seperated integer inputs
+def invr():
+    return(map(int,input().split()))
+
+#start coding from here
    """ % (now)
     return template
 
