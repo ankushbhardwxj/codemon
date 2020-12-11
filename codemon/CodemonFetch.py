@@ -30,7 +30,7 @@ def fetch_tests(file_list, contestName):
     else:
       print("Fetching sample test cases...")
       for file_name, test in zip(file_list, tests):
-        # Make the neccesary folders and files for each source file if not present.
+        # Check if proper directory structure exists, if not generate error.
         flag = True
         if(check_structure(file_name, basedir)):
           # Add  inputs to .in files
@@ -47,7 +47,8 @@ def fetch_tests(file_list, contestName):
           flag = False
           break
       print("Sample test cases added." if flag else 
-       colored.red(f"Failed to add sample test cases.\nProper directory structure for contest {contest_number} not found !!"))
+            colored.red(f"Failed to add sample test cases: Incorrect directory structure !!"))
+
   # In case of any error with scraping, display warning.
   except:
     print(colored.red("There was some error fetching the tests !!"))
