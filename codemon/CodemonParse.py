@@ -66,8 +66,10 @@ class Parser:
         self.to_practice = True
 
       elif a == "fetch":
+        if(len(arguments) > 1):
+          self.help = True
+          break
         self.to_fetch = True
-
       else:
         self.name += a
 
