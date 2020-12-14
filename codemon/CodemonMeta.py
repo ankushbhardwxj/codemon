@@ -36,7 +36,7 @@ int main() {
   def default_py(self):
     now = datetime.now()
     template="""
-# author: @Siddhant-K-code
+# author: @ankingcodes
 # created: %s
 from os import path
 from io import BytesIO, IOBase
