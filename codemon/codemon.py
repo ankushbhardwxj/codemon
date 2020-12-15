@@ -1,47 +1,54 @@
+
 #!/usr/bin/python3
 import sys
 import os
+import re
 from clint.textui import colored
 from codemon.CodemonHelp import showHelp
 from codemon.CodemonListen import listen
-from codemon.CodemonInit import init
-from codemon.CodemonMeta import template_cpp,get_filename, get_practice_files
+from codemon.CodemonInit import init, init_single_file
+from codemon.CodemonReg import codemonReg
+from codemon.CodemonMeta import get_filename, get_practice_files
+from codemon.CodemonFetch import fetch_tests, make_structure
+from codemon.CodemonParse import Parser
 
 def main():
-  if len(sys.argv) < 2:
+  arg = Parser()
+  arg.parse(sys.argv[1:])
+
+  if arg.help:
     showHelp()
 
+  elif arg.to_listen:
+    listen()
+
+  elif arg.to_practice:
+    contestName = arg.name
+    practiceFiles = get_practice_files()
+    init(contestName, practiceFiles, arg.init_flags)
+
+  elif arg.to_init:
+    if arg.init_flags["is_single"]:
+      fileName = arg.name
+      init_single_file(f'{fileName}', arg.init_flags)
+    else:
+      contestName = arg.name
+      fileNames = get_filename(contestName)
+      init(contestName, fileNames, arg.init_flags)
+      if arg.init_flags["to_fetch"]:
+        fetch_tests(fileNames, contestName)
+  elif arg.to_fetch:
+    if arg.name == "":
+      contestName = ''.join(re.findall(r'\d+', os.getcwd().split('/')[-1]))
+      fileNames = get_filename(contestName)
+      fetch_tests(fileNames, contestName)
+    else:
+      contestName = arg.name
+      fileName = get_filename(contestName)
+      fetch_tests(fileName, contestName)
+  elif arg.Reg:
+    codemonReg()
+
   else:
-    countArg = 0
-    for arg in sys.argv:
-      countArg+=1
+    showHelp()
 
-      if arg == "init":
-        if sys.argv[countArg] == '-n':
-          fileName = sys.argv[countArg+1]
-          template = template_cpp()
-          init_single_file(f'{fileName}.cpp', template)
-          print(colored.yellow(f'Created {fileName}.cpp'))
-          break
-
-        else:
-          contestName = sys.argv[countArg]
-          fileNames = get_filename()
-          init(contestName, fileNames)
-
-      elif arg == "listen":
-        listen()
-
-      elif arg == "practice":
-        contestName = sys.argv[countArg]
-        practiceFiles = get_practice_files()
-        init(contestName, practiceFiles)
-
-      elif arg == "--help":
-        showHelp()
-        break
-
-def init_single_file(filename, template='\n'):
-  full_filename = os.path.join(os.getcwd(), filename)
-  with open(full_filename, 'w+') as f:
-    f.write(template)
