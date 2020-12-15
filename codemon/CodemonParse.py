@@ -19,6 +19,7 @@ class Parser:
     # No arguments provided
     if len(arg_list) == 0:
       self.help = True
+      return
     # Extract all flags/option
     flags = list(map(lambda x: x.strip(), re.findall('.\-.\w*', " " + ' '.join(arg_list))))
     # Extract all non flag arguments

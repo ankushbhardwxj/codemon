@@ -14,10 +14,9 @@ def check_structure(name, basedir):
       status = False
   return status
 
-
 def fetch_tests(file_list, contestName):
   try:
-    basedir = os.path.join(os.getcwd(), contestName) if not os.getcwd().split('/')[-1] == contestName else os.getcwd()
+    basedir = os.path.join(os.getcwd(), contestName) if not os.path.basename(os.getcwd()) == contestName else os.getcwd()
     contest_number = ''.join(re.findall(r'\d+', contestName))
     if not len(contest_number):
         print(colored.red("Invalid contest number."))
@@ -48,7 +47,6 @@ def fetch_tests(file_list, contestName):
           break
       print("Sample test cases added." if flag else 
             colored.red(f"Failed to add sample test cases: Incorrect directory structure !!"))
-
   # In case of any error with scraping, display warning.
   except:
     print(colored.red("There was some error fetching the tests !!"))

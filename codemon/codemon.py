@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 import sys
 import os
@@ -39,7 +38,7 @@ def main():
         fetch_tests(fileNames, contestName)
 
   elif arg.to_fetch:
-    contestName = os.getcwd().split('/')[-1]
+    contestName = os.path.basename(os.getcwd())
     fileNames = get_filename(contestName)
     fetch_tests(fileNames, contestName)
 
