@@ -83,9 +83,25 @@ if __name__ =="__main__":
   def default_java(self):
     now = datetime.now()
     template ="""
-// author: @ankingcodes
-// created: %s
-// Write your code here
+/*
+  author: @ankingcodes
+  created: %s
+*/
+
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+// Rename the class as needed
+class Solution {
+  public static void main(String[] args) throws Exception {
+    Scanner in = new Scanner(System.in);
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    in.close();
+    br.close();
+  }
+}
 """ % (now)
     return template
 
