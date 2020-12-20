@@ -30,7 +30,7 @@ def fetch_tests(file_list, contestName):
       print("Fetching sample test cases...")
       for file_name, test in zip(file_list, tests):
         # Check if proper directory structure exists, if not generate error.
-        flag = True
+        correct_dir_structure = True
         if(check_structure(file_name, basedir)):
           # Add  inputs to .in files
           for t in test.findAll("div", attrs={"class":"input"}):
@@ -43,9 +43,9 @@ def fetch_tests(file_list, contestName):
             with open(os.path.join(basedir, f'{file_name}' , f'{file_name}.op'), 'a') as f:
               f.write(o[1:])
         else:
-          flag = False
+          correct_dir_structure = False
           break
-      print("Sample test cases added." if flag else 
+      print("Sample test cases added." if correct_dir_structure else 
             colored.red(f"Failed to add sample test cases: Incorrect directory structure !!"))
   # In case of any error with scraping, display warning.
   except:

@@ -12,14 +12,13 @@ def write_to_file(filename, text, contestName=None):
 def init(contestName,fileNames, init_flags):
   # create a directory with contest name
   try:
-    print(f'Creating directories for contest {contestName}...')
     os.makedirs(os.path.join(os.getcwd(), contestName))
     for f in fileNames:
       os.makedirs(os.path.join(os.getcwd(), contestName, f))
   except OSError:
-    print(colored.red("Failed! This directory cannot be created."))
+    print(colored.red(f"Failed to create directory{contestName} !"))
   else:
-    print('Directories are made.')
+    print(f"Created directory {contestName}")
     templates, ext, use_template = Templates(), None, None
     if init_flags["is_py"]:
         ext, use_template = "py", templates.get_custom_template("py") or templates.default_py()
@@ -41,7 +40,6 @@ def init_single_file(filename, init_flags):
   elif init_flags["is_cpp"]:
     ext, use_template = "cpp", templates.get_custom_template("cpp") or templates.default_cpp()
   full_filename = os.path.join(os.getcwd(), f"{filename}.{ext}")
-  print("Making single file")
   with open(full_filename, 'w+') as f:
     f.write(use_template)
-  print(f"Created {filename}.{ext}")
+  print(f"Created file {filename}.{ext}")
