@@ -10,7 +10,7 @@ during a contest.
 
 #### Codemon takes care of everything else so that you only focus on writing correct code and implementing complex algorithms.
 
-Note: Codemon currently supports C++ only.
+Note: Codemon currently supports C++,Java and Python only.
 
 <br>
 <p align="center">
@@ -33,11 +33,16 @@ Note: Codemon currently supports C++ only.
 
 ## CLI - commands
    ```
-   codemon init <contestName>
+   codemon init -f <contestName> 
    ```
     
-  This creates a directory with the name of the contest and creates 6 `.cpp` files 
-  as per contests in CodeForces.
+  This creates a directory with the name of the contest , creates C++ files 
+  as per the contests in CodeForces and also fetches all sample test cases for contest name provided.Language flags `-py` or `-Java` can be used to create a directory in python and Java respectively.
+  ```
+  codemon fetch <contestName>
+  ```
+  This command inside a contest directory extracts the contestNumber from the directory and fetches all sample test Cases for the contest.
+  
   You can also create a file with custom name and start listening to it immediately using the command as follows: 
   ```
   codemon init -n <fileName>
