@@ -16,7 +16,7 @@ def init(contestName,fileNames, init_flags):
     for f in fileNames:
       os.makedirs(os.path.join(os.getcwd(), contestName, f))
   except OSError:
-    print(colored.red(f"Failed to create directory{contestName} !"))
+    print(colored.red(f"Failed to create directory {contestName} !"))
   else:
     print(f"Created directory {contestName}")
     templates, ext, use_template = Templates(), None, None
