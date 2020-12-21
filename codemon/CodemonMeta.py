@@ -115,7 +115,6 @@ class Solution {
             template = f.read()
     return template
 
-
 def get_filename(contestName):
   fileNames = []
   contest_number = ''.join(re.findall(r'\d+', contestName))

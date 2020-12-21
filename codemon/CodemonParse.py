@@ -19,6 +19,7 @@ class Parser:
     # No arguments provided
     if len(arg_list) == 0:
       self.help = True
+      return
     # Extract all flags/option
     flags = list(map(lambda x: x.strip(), re.findall('.\-.\w*', " " + ' '.join(arg_list))))
     # Extract all non flag arguments
@@ -66,8 +67,10 @@ class Parser:
         self.to_practice = True
 
       elif a == "fetch":
+        if(len(arguments) > 1):
+          self.help = True
+          break
         self.to_fetch = True
-
       else:
         self.name += a
 
