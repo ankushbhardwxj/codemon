@@ -36,12 +36,14 @@ def fetch_tests(file_list, contestName):
           for t in test.findAll("div", attrs={"class":"input"}):
             i = t.pre.text
             with open(os.path.join(basedir, f'{file_name}' , f'{file_name}.in'), 'a') as f:
-              f.write(i[1:])
+              f.write(i[1:]) if i[0] == '\n' else f.write(i)
+              f.write('\n')
           # Add outputs to .op files
           for t in test.findAll("div", attrs={"class":"output"}):
             o = t.pre.text
             with open(os.path.join(basedir, f'{file_name}' , f'{file_name}.op'), 'a') as f:
-              f.write(o[1:])
+              f.write(o[1:]) if o[0] == '\n' else f.write(o)
+              f.write('\n')
         else:
           correct_dir_structure = False
           break
