@@ -9,8 +9,6 @@ from clint.textui import colored
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
 
-
-
 class Runner:
   def __init__(self, filename):
     self.src_file_path = os.path.join(os.getcwd(), filename.split('.')[0], filename)
@@ -18,7 +16,7 @@ class Runner:
     self.sample_in_file_path = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.in")
     self.sample_out_file_path = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.op")
 
-  def get_IO_file_content(self):
+  def get_inputs_and_outputs(self):
     user_in_list, sample_in_list, sample_out_list = [], [], []
     with open(self.user_in_file_path, 'r+', encoding='utf-8') as cin, \
         open(self.sample_in_file_path, 'r+', encoding='utf-8') as sin, \
@@ -38,12 +36,14 @@ class Runner:
       temp.append(check[i])
       if check[i] == '' or i == len(check)-1:
         if(temp == ['']):
+          temp = []
           continue
         res.append('\n'.join(temp))
         temp = []
     return res
 
   def run_cpp(self):
+    print(colored.cyan(f"Compiling {os.path.basename(self.src_file_path)}..."))
     cpp_executable_path = os.path.join(os.getcwd(), 'prog')
     compilation_child_process = subprocess.Popen(['g++', self.src_file_path, '-o', cpp_executable_path], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     compilation_child_process.wait()
@@ -54,7 +54,7 @@ class Runner:
         print("'g++' isn't installed.", file=sys.stderr)
       return
     print('Running...')
-    user_in_list, sample_in_list, sample_out_list = self.get_IO_file_content()
+    user_in_list, sample_in_list, sample_out_list = self.get_inputs_and_outputs()
     if user_in_list:
       print(colored.yellow("Taking inputs from test_case file"))
       for inp in user_in_list:
@@ -81,7 +81,7 @@ class Runner:
 
   def run_py(self):
     python_interpreter = "python" if os.name == "nt" else "python3"
-    user_in_list, sample_in_list, sample_out_list = self.get_IO_file_content()
+    user_in_list, sample_in_list, sample_out_list = self.get_inputs_and_outputs()
     print("Running...")
     if user_in_list:
       print(colored.yellow("Taking inputs from test_case file"))
@@ -133,21 +133,20 @@ class Runner:
       print(colored.yellow(f"Output: "))
       print(output)
 
-
   def check_files(self):
     # Check if required files exist
     status = True
     if not Path(self.src_file_path).is_file():
-      print(f"{filename} doesn't exist.", file=sys.stderr)
+      print(colored.red(f"{filename} doesn't exist !"), file=sys.stderr)
       status = False
     if not Path(self.user_in_file_path).is_file():
-      print(f"Custom input file doesn't exist.", file=sys.stderr)
+      print(colored.red(f"User input file doesn't exist !"), file=sys.stderr)
       status = False
     if not Path(self.sample_in_file_path).is_file():
-      print(f"Sample input file doesn't exist.", file=sys.stderr)
+      print(colored.red(f"Sample input file doesn't exist !"), file=sys.stderr)
       status = False
     if not Path(self.sample_out_file_path).is_file():
-      print(f"Sample output file doesn't exist.", file=sys.stderr)
+      print(colored.red(f"Sample output file doesn't exist !"), file=sys.stderr)
       status = False
     return status
 
@@ -197,6 +196,3 @@ def isModified(event):
       execute.run_cpp()
     elif(filename.split('.')[-1] == 'py'):
       execute.run_py()
-
-
-
