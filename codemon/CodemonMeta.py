@@ -1,5 +1,6 @@
 import re
 import os
+import json
 import requests
 from clint.textui import colored
 from datetime import datetime
@@ -108,11 +109,24 @@ class Solution {
   def get_custom_template(self, ext):
     template = None
     home = os.path.expanduser("~")
+    username = ''
+    metafile = 'meta.json'
     if(os.path.exists(os.path.join(home, ".codemon"))):
       for file in os.listdir(os.path.join(home, ".codemon")):
+        if(file == metafile):
+          with open(os.path.join(home, '.codemon', metafile), 'r') as f:
+            data = json.load(f)
+            username = '@' + data['codeforces_username']
         if(file.split('.')[-1] == ext):
           with open(os.path.join(home, ".codemon", file), 'r') as f:
             template = f.read()
+    now = datetime.now()
+    
+    header = """/*
+  author: %s
+  created: %s
+*/\n""" % (username, now)
+    template = header + template
     return template
 
 def get_filename(contestName):
