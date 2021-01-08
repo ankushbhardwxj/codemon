@@ -120,13 +120,22 @@ class Solution {
         if(file.split('.')[-1] == ext):
           with open(os.path.join(home, ".codemon", file), 'r') as f:
             template = f.read()
-    now = datetime.now()
-    
-    header = """/*
+
+    if template:
+      now = datetime.now()
+      if ext in ("java", "cpp"):
+        header = """/*
   author: %s
   created: %s
-*/\n""" % (username, now)
-    template = header + template
+*/
+        """ % (username, now)
+      else:
+        header = """
+# author: %s
+# created: %s
+        """ % (username, now)
+      template = header + '\n' + template
+
     return template
 
 def get_filename(contestName):
