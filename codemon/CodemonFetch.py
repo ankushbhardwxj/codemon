@@ -34,14 +34,24 @@ def fetch_tests(file_list, contestName):
         if(check_structure(file_name, basedir)):
           # Add  inputs to .in files
           for t in test.findAll("div", attrs={"class":"input"}):
-            i = t.pre.text
+            inp = t.pre.contents
             with open(os.path.join(basedir, f'{file_name}' , f'{file_name}.in'), 'a') as f:
-              f.write(i[1:])
+              for i in range(len(inp)):
+                if str(inp[i]) in ('<br>', '<br/>'):
+                  # Make sure separate testcases are separated by a newline
+                  f.write('\n\n') if i == len(inp)-1 else f.write('\n')
+                  continue
+                f.write(inp[i])
           # Add outputs to .op files
           for t in test.findAll("div", attrs={"class":"output"}):
-            o = t.pre.text
+            outp = t.pre.contents
             with open(os.path.join(basedir, f'{file_name}' , f'{file_name}.op'), 'a') as f:
-              f.write(o[1:])
+              for o in range(len(outp)):
+                if str(outp[o]) in ('<br>', '<br/>'):
+                  # Make sure separate testcases are separated by a newline
+                  f.write('\n\n') if o == len(outp)-1 else f.write('\n')
+                  continue
+                f.write(outp[o])
         else:
           correct_dir_structure = False
           break
@@ -50,7 +60,3 @@ def fetch_tests(file_list, contestName):
   # In case of any error with scraping, display warning.
   except:
     print(colored.red("There was some error fetching the tests !!"))
-
-
-
-
