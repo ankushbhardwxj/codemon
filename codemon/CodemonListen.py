@@ -45,7 +45,9 @@ class Runner:
   def run_cpp(self):
     print(colored.cyan(f"Compiling {os.path.basename(self.src_file_path)}..."))
     cpp_executable_path = os.path.join(os.getcwd(), 'prog')
-    compilation_child_process = subprocess.Popen(['g++', self.src_file_path, '-o', cpp_executable_path], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    # compiles the C++ program
+    compilation_child_process = subprocess.Popen(['g++', self.src_file_path, 
+      '-o', cpp_executable_path], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     compilation_child_process.wait()
     compilation_child_process.terminate()
     if compilation_child_process.returncode != 0:
@@ -54,11 +56,13 @@ class Runner:
         print("'g++' isn't installed.", file=sys.stderr)
       return
     print('Running...')
+    # Runs executable, with testcases
     user_in_list, sample_in_list, sample_out_list = self.get_inputs_and_outputs()
     if user_in_list:
       print(colored.yellow("Taking inputs from test_case file"))
       for inp in user_in_list:
-        execution_child_process = subprocess.Popen([cpp_executable_path], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        execution_child_process = subprocess.Popen([cpp_executable_path],
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         execution_child_process.stdin.write(inp.encode(encoding='utf-8'))
         current_output = execution_child_process.communicate()
         if(len(current_output) > 0):
@@ -68,7 +72,8 @@ class Runner:
       print(colored.yellow("No custom input found."))
       print(colored.yellow("Running sample testcases."))
       for inp, outp in zip(sample_in_list, sample_out_list):
-        execution_child_process = subprocess.Popen([cpp_executable_path], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        execution_child_process = subprocess.Popen([cpp_executable_path],
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         execution_child_process.stdin.write(inp.encode(encoding='utf-8'))
         current_output = execution_child_process.communicate()
         if(len(current_output) > 0):
@@ -172,7 +177,7 @@ def listen():
     ignore_directories = True
     case_sensitive = True
     event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
-    event_handler.on_modified = isModified 
+    event_handler.on_created = isModified 
     observer = Observer()
     observer.schedule(event_handler,path,recursive=True)
     observer.start()

@@ -1,6 +1,6 @@
-# Parse all command line arguments and options.
 import re
 
+# Parse all command line arguments and options.
 class Parser:
 
   def __init__(self):
@@ -15,7 +15,6 @@ class Parser:
     self.name = ""
 
   def parse(self, arg_list):
-
     # No arguments provided
     if len(arg_list) == 0:
       self.help = True
@@ -45,32 +44,28 @@ class Parser:
       elif fl == "--help":
         self.help = True
 
-    for a in arguments:
+    for arg in arguments:
       # error check: if any other argument provided with listen show help.
-      if a == "listen":
+      if arg == "listen":
         if(len(arguments) > 1):
           self.help = True
           break
         self.to_listen = True
-
-      elif a == "init":
+      elif arg == "init":
         self.to_init = True
-
       # error check: if any other argument provided with reg show help.
-      elif a == "reg":
+      elif arg == "reg":
         if(len(arguments) > 1):
           self.help = True
           break
         self.Reg = True
-
-      elif a == "practice":
+      elif arg == "practice":
         self.to_practice = True
-
-      elif a == "fetch":
+      elif arg == "fetch":
         if(len(arguments) > 1):
           self.help = True
           break
         self.to_fetch = True
       else:
-        self.name += a
+        self.name += arg
 
