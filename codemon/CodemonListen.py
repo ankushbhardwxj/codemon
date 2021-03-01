@@ -11,20 +11,22 @@ from watchdog.observers import Observer
 
 class Runner:
   def __init__(self, filename):
-    self.src_file_path = os.path.join(os.getcwd(), filename.split('.')[0], filename)
-    self.user_in_file_path = os.path.join(os.getcwd(), 'test_case')
-    self.sample_in_file_path = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.in")
-    self.sample_out_file_path = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.op")
+    #self.src_file_path = os.path.join(os.getcwd(), filename.split('.')[0], filename)
+    self.srcFilePath = os.path.join(os.getcwd(), filename.split('.')[0], filename)
+    self.testCaseFilePath = os.path.join(os.getcwd(), 'test_case')
+    self.inputFilePath = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.in")
+    self.outputFilePath = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.op")
 
   def get_inputs_and_outputs(self):
     user_in_list, sample_in_list, sample_out_list = [], [], []
-    with open(self.user_in_file_path, 'r+', encoding='utf-8') as cin, \
-        open(self.sample_in_file_path, 'r+', encoding='utf-8') as sin, \
-        open(self.sample_out_file_path, 'r+', encoding='utf-8') as sout:
+    with open(self.user_in_file_path, 'r+', encoding='utf-8') as cin:
+        #open(self.sample_in_file_path, 'r+', encoding='utf-8') as sin, \
+        #open(self.sample_out_file_path, 'r+', encoding='utf-8') as sout:
       user_in_list = self.clean_file_content(cin.read())
-      sample_in_list = self.clean_file_content(sin.read())
-      sample_out_list = self.clean_file_content(sout.read())
-    return user_in_list, sample_in_list, sample_out_list
+      #sample_in_list = self.clean_file_content(sin.read())
+      #sample_out_list = self.clean_file_content(sout.read())
+    #return user_in_list, sample_in_list, sample_out_list
+    return user_in_list
 
   def clean_file_content(self, content):
     res, temp = [], []
@@ -57,7 +59,8 @@ class Runner:
       return
     print('Running...')
     # Runs executable, with testcases
-    user_in_list, sample_in_list, sample_out_list = self.get_inputs_and_outputs()
+    #user_in_list, sample_in_list, sample_out_list = self.get_inputs_and_outputs()
+    user_in_list = self.get_inputs_and_outputs()
     if user_in_list:
       print(colored.yellow("Taking inputs from test_case file"))
       for inp in user_in_list:
@@ -68,6 +71,11 @@ class Runner:
         if(len(current_output) > 0):
           self.display_output(current_output[0].decode())
         execution_child_process.terminate()
+    else:
+      print(colored.yellow("No input found."))
+      print("Output: ")
+      subprocess.run(f'{cpp_executable_path}')
+    """
     elif sample_in_list and sample_out_list:
       print(colored.yellow("No custom input found."))
       print(colored.yellow("Running sample testcases."))
@@ -79,10 +87,7 @@ class Runner:
         if(len(current_output) > 0):
           self.display_output(current_output[0].decode(), outp)
         execution_child_process.terminate()
-    else:
-      print(colored.yellow("No input found."))
-      print("Output: ")
-      subprocess.run(f'{cpp_executable_path}')
+    """
 
   def run_py(self):
     python_interpreter = "python" if os.name == "nt" else "python3"
@@ -138,22 +143,29 @@ class Runner:
       print(colored.yellow(f"Output: "))
       print(output)
 
+  # Check for necessary files and create them
   def check_files(self):
-    # Check if required files exist
-    status = True
-    if not Path(self.src_file_path).is_file():
-      print(colored.red(f"{filename} doesn't exist !"), file=sys.stderr)
-      status = False
-    if not Path(self.user_in_file_path).is_file():
-      print(colored.red(f"User input file doesn't exist !"), file=sys.stderr)
-      status = False
+    # debug
+    print("src_file_path", self.srcFilePath)
+    print("user_in_file_path", self.testCaseFilePath)
+    print("sample_in_file_path", self.inputFilePath)
+    print("sample_out_file_path", self.outputFilePath)
+    if not Path(self.srcFilePath).is_file():
+      print(f"File not found in {self.srcFilePath}")
+    if not Path(self.testCaseFilePath).is_file():
+      print(f"TestCaseFile Not found")
+    if not Path(self.inputFilePath).is_file():
+      print(f"Input File not found")
+    if not Path(self.outputFilePath).is_file():
+      print(f"Output File not found")
+    """
     if not Path(self.sample_in_file_path).is_file():
       print(colored.red(f"Sample input file doesn't exist !"), file=sys.stderr)
       status = False
     if not Path(self.sample_out_file_path).is_file():
       print(colored.red(f"Sample output file doesn't exist !"), file=sys.stderr)
       status = False
-    return status
+    """
 
   def color_diff(self, diff):
     for line in diff:
@@ -166,6 +178,21 @@ class Runner:
       else:
         yield line
 
+def isModified(event):
+  modifiedFile = os.path.basename(event.src_path) 
+  modifiedFileDirectory = os.path.dirname(event.src_path)
+  print("File Modified", modifiedFile)
+  print("Directory Modified", modifiedFileDirectory)
+  """
+  execute = Runner(filename)
+  if execute.check_files() and filename not in (foldername, "prog", "test_case"):
+    print(colored.yellow('\nChange made at '+ filename))
+    if(filename.split('.')[-1] == 'cpp'):
+      execute.run_cpp()
+    elif(filename.split('.')[-1] == 'py'):
+      execute.run_py()
+  """
+
 def listen():
   print(colored.yellow("Getting files in directory"))
   path = os.getcwd()
@@ -174,9 +201,9 @@ def listen():
     print(colored.magenta("Currently listening for file changes"))
     patterns = ['*.cpp', '*.py']
     ignore_patterns = ['prog', '*.exe', '*.swp']
-    ignore_directories = True
+    #ignore_directories = True # TODO : check otherwise
     case_sensitive = True
-    event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
+    event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, case_sensitive)
     event_handler.on_created = isModified 
     observer = Observer()
     observer.schedule(event_handler,path,recursive=True)
@@ -190,14 +217,3 @@ def listen():
   else:
     print(colored.red("No files exist, check filename/path."))
 
-
-def isModified(event):
-  filename = os.path.basename(event.src_path)
-  foldername = os.path.basename(os.getcwd())
-  execute = Runner(filename)
-  if execute.check_files() and filename not in (foldername, "prog", "test_case"):
-    print(colored.yellow('\nChange made at '+ filename))
-    if(filename.split('.')[-1] == 'cpp'):
-      execute.run_cpp()
-    elif(filename.split('.')[-1] == 'py'):
-      execute.run_py()
