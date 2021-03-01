@@ -9,8 +9,8 @@ def write_to_file(filename, text, contestName=None):
   open(os.path.join(os.getcwd(),contestName, filename.split('.')[0], f"{filename.split('.')[0]}.in"), 'w').close()
   open(os.path.join(os.getcwd(),contestName, filename.split('.')[0], f"{filename.split('.')[0]}.op"), 'w').close()
 
-def init(contestName,fileNames, init_flags):
-  # create a directory with contest name
+# creates a directory for a contest
+def init(contestName, fileNames, init_flags):
   try:
     os.makedirs(os.path.join(os.getcwd(), contestName))
     for f in fileNames:
@@ -31,6 +31,7 @@ def init(contestName,fileNames, init_flags):
     for files in fileNames:
       write_to_file(f"{files}.{ext}", use_template, contestName)
 
+# creates a single file with given filename and template
 def init_single_file(filename, init_flags):
   templates, ext, use_template = Templates(), None, None
   if init_flags["is_py"]:

@@ -10,12 +10,12 @@ from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
 
 class Runner:
-  def __init__(self, filename):
+  def __init__(self, fileName, dirName):
     #self.src_file_path = os.path.join(os.getcwd(), filename.split('.')[0], filename)
-    self.srcFilePath = os.path.join(os.getcwd(), filename.split('.')[0], filename)
+    self.srcFilePath = os.path.join(dirName, fileName)
     self.testCaseFilePath = os.path.join(os.getcwd(), 'test_case')
-    self.inputFilePath = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.in")
-    self.outputFilePath = os.path.join(os.getcwd(), filename.split('.')[0], f"{filename.split('.')[0]}.op")
+    self.inputFilePath = os.path.join(dirName, f"{fileName.split('.')[0]}.in")
+    self.outputFilePath = os.path.join(dirName, f"{fileName.split('.')[0]}.op")
 
   def get_inputs_and_outputs(self):
     user_in_list, sample_in_list, sample_out_list = [], [], []
@@ -145,27 +145,27 @@ class Runner:
 
   # Check for necessary files and create them
   def check_files(self):
-    # debug
-    print("src_file_path", self.srcFilePath)
-    print("user_in_file_path", self.testCaseFilePath)
-    print("sample_in_file_path", self.inputFilePath)
-    print("sample_out_file_path", self.outputFilePath)
-    if not Path(self.srcFilePath).is_file():
-      print(f"File not found in {self.srcFilePath}")
-    if not Path(self.testCaseFilePath).is_file():
-      print(f"TestCaseFile Not found")
-    if not Path(self.inputFilePath).is_file():
-      print(f"Input File not found")
-    if not Path(self.outputFilePath).is_file():
-      print(f"Output File not found")
-    """
-    if not Path(self.sample_in_file_path).is_file():
-      print(colored.red(f"Sample input file doesn't exist !"), file=sys.stderr)
-      status = False
-    if not Path(self.sample_out_file_path).is_file():
-      print(colored.red(f"Sample output file doesn't exist !"), file=sys.stderr)
-      status = False
-    """
+    fName = os.path.basename(self.srcFilePath).split('.')[0]
+    if len(fName) <= 1: 
+      # if its a contest dir
+      if not Path(self.srcFilePath).is_file():
+        print("Cannot find source file to be compiled at {os.path.relpath(self.srcFilePath)}")
+        return False
+      if not Path(self.inputFilePath).is_file():
+        print(f"Cannot find input file at {os.path.relpath(self.inputFilePath)}")
+        print("Pro tip: If you're not playing a contest, init fileNames with length greater than 1 to avoid discrepancies.")
+        return False
+      if not Path(self.outputFilePath).is_file():
+        print(f"Cannot find output file at {os.path.relpath(self.outputFilePath)}")
+        return False
+    else:
+      # if its not a contest dir
+      if not Path(self.srcFilePath).is_file():
+        print("Cannot find source file to be compiled at {os.path.relpath(self.srcFilePath)}")
+        return False
+      if not Path(self.testCaseFilePath).is_file():
+        print(f"Cannot find input file (test_case) at the current working directory.")
+    return True
 
   def color_diff(self, diff):
     for line in diff:
@@ -181,17 +181,14 @@ class Runner:
 def isModified(event):
   modifiedFile = os.path.basename(event.src_path) 
   modifiedFileDirectory = os.path.dirname(event.src_path)
-  print("File Modified", modifiedFile)
-  print("Directory Modified", modifiedFileDirectory)
-  """
-  execute = Runner(filename)
-  if execute.check_files() and filename not in (foldername, "prog", "test_case"):
-    print(colored.yellow('\nChange made at '+ filename))
-    if(filename.split('.')[-1] == 'cpp'):
-      execute.run_cpp()
-    elif(filename.split('.')[-1] == 'py'):
-      execute.run_py()
-  """
+  execute = Runner(modifiedFile, modifiedFileDirectory)
+  if execute.check_files():
+    print(colored.yellow('\nChange made at '+ modifiedFile))
+    """
+    if(modifiedFile.split('.')[-1] == 'cpp'): execute.run_cpp()
+    elif(modifiedFile.split('.')[-1] == 'py'): execute.run_py()
+    """
+    
 
 def listen():
   print(colored.yellow("Getting files in directory"))

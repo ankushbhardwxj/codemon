@@ -1,8 +1,6 @@
 import re
 
-# Parse all command line arguments and options.
 class Parser:
-
   def __init__(self):
     self.to_listen = False
     self.help = False
@@ -12,10 +10,10 @@ class Parser:
                                              "to_fetch":False }
     self.to_fetch = False
     self.Reg = False
+    self.Err = False
     self.name = ""
 
   def parse(self, arg_list):
-    # No arguments provided
     if len(arg_list) == 0:
       self.help = True
       return
@@ -26,15 +24,13 @@ class Parser:
 
     for fl in flags:
       if fl == '-py':
-        # error check: if two language flags present at the same time, show help.
-        if "-java" in flags or "-cpp" in flags:
-          self.help = True
+        if checkMultipleLangFlags(fl, '-java', '-cpp', flags):
+          self.Err = True
           break
         self.init_flags["is_py"] = True
       elif fl == '-java':
-        # error check: if two language flags present at the same time, show help.
-        if "-py" in flags or "-cpp" in flags:
-          self.help = True
+        if checkMultipleLangFlags(fl, '-py', '-cpp', flags):
+          self.Err = True
           break
         self.init_flags["is_java"] = True
       elif fl == '-n':
@@ -45,27 +41,43 @@ class Parser:
         self.help = True
 
     for arg in arguments:
-      # error check: if any other argument provided with listen show help.
       if arg == "listen":
-        if(len(arguments) > 1):
-          self.help = True
+        if checkExtraArgs(arg, arguments) == True:
+          self.Err = True
           break
         self.to_listen = True
       elif arg == "init":
         self.to_init = True
-      # error check: if any other argument provided with reg show help.
       elif arg == "reg":
-        if(len(arguments) > 1):
-          self.help = True
+        if checkExtraArgs(arg, arguments) == True:
+          self.Err = True
           break
         self.Reg = True
       elif arg == "practice":
         self.to_practice = True
       elif arg == "fetch":
-        if(len(arguments) > 1):
-          self.help = True
+        if checkExtraArgs(arg, arguments) == True:
+          self.Err = True
           break
         self.to_fetch = True
       else:
         self.name += arg
 
+# error check for multiple extension flags used together
+def checkMultipleLangFlags(actualFlag, flag1, flag2, flags):
+  if flag1 in flags:
+    print(f"Codemon cannot create a file with both {actualFlag.replace('-', '.')} and {flag1.replace('-','.')} extensions.")
+    print("Please use a single flag for the file extension.")
+    return True
+  elif flag2 in flags:
+    print(f"Codemon cannot create a file with both {actualFlag.replace('-', '.')} and {flag2.replace('-','.')} extensions.")
+    print("Please use a single flag for the file extension.")
+    return True
+  return False
+
+# error check for extra arguments used
+def checkExtraArgs(cmd, args):
+  if len(args) > 1:
+    print(f"Cannot use additional arguments with '{cmd}'. Try using 'codemon {cmd}'.")
+    return True
+  return False
