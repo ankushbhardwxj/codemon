@@ -27,7 +27,9 @@ def init(contestName, fileNames, init_flags):
     elif init_flags["is_cpp"]:
         ext, use_template = "cpp", templates.get_custom_template("cpp") or templates.default_cpp()
     open(os.path.join(os.getcwd(), contestName, f"test_case"), 'w').close()
-    open(os.path.join(os.getcwd(), contestName, f"test_case.{ext}"), 'w').close()
+    with open(os.path.join(os.getcwd(), contestName, f"test_case.{ext}"), 'w') as f:
+      f.write(testCaseTemplate)
+      f.close()
     for files in fileNames:
       write_to_file(f"{files}.{ext}", use_template, contestName)
 
@@ -43,4 +45,15 @@ def init_single_file(filename, init_flags):
   full_filename = os.path.join(os.getcwd(), f"{filename}.{ext}")
   with open(full_filename, 'w+') as f:
     f.write(use_template)
+    f.close()
   print(f"Created file {filename}.{ext}")
+
+# template for test_case.cpp
+testCaseTemplate = """#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+int main() {
+  return 0;
+}
+"""

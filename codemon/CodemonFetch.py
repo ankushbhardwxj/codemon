@@ -41,7 +41,7 @@ def fetch_tests(file_list, contestName):
                   # Make sure separate testcases are separated by a newline
                   f.write('\n\n') if i == len(inp)-1 else f.write('\n')
                   continue
-                f.write(inp[i])
+                f.write(inp[i][1:])
           # Add outputs to .op files
           for t in test.findAll("div", attrs={"class":"output"}):
             outp = t.pre.contents
@@ -51,7 +51,7 @@ def fetch_tests(file_list, contestName):
                   # Make sure separate testcases are separated by a newline
                   f.write('\n\n') if o == len(outp)-1 else f.write('\n')
                   continue
-                f.write(outp[o])
+                f.write(outp[o][1:])
         else:
           correct_dir_structure = False
           break
