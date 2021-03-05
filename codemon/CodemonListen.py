@@ -64,7 +64,7 @@ class Runner:
     executable = os.path.join(os.getcwd(), 'prog')
     returnCode = self.compileTarget(executable)
     if returnCode != 0:
-      if return_code == 127:
+      if returnCode == 127:
         print(colored.red("'g++' isn't installed.", file=sys.stderr))
       return
     testCases, sampleInputs, sampleOutputs = self.getProgramMetadata(typeOfDir)
