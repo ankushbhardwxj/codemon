@@ -48,5 +48,5 @@ def main():
     elif arg.Reg:
       codemonReg()
     else:
-      print("Invalid Command. Try 'codemon --help' to see commands supported by Codemon")
+      print("Invalid Command. Try 'codemon --help' to see commands supported by Codemon.")
 
