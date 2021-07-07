@@ -70,7 +70,7 @@ def fetchTestcases(fileList, contestName):
       else:
         print(colored.red(f"Failed to add sample testcases due to incorrect directory structure."))
         deleteContestFolder(basedir)
-        break
+        return
 
     print("Successfully fetched sample testcases.")
   except:
