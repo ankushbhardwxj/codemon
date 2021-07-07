@@ -184,7 +184,6 @@ def isModified(event):
   if fileCheckRes:
     if(modifiedFile.split('.')[-1] == 'cpp'): execute.run_cpp(typeOfDir)
     elif(modifiedFile.split('.')[-1] == 'py'): execute.run_py(typeOfDir)
-    
 
 def listen():
   print(colored.yellow("Getting files in directory"))

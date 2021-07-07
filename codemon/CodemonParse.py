@@ -5,9 +5,14 @@ class Parser:
     self.to_listen = False
     self.help = False
     self.to_practice = False
-    self.to_init, self.init_flags = False, { "is_single": False, "is_cpp":True,
-                                             "is_java":False, "is_py":False,
-                                             "to_fetch":False }
+    self.to_init = False,
+    self.init_flags = {
+      "is_single": False,
+      "is_cpp":True,
+      "is_java":False,
+      "is_py":False,
+      "to_fetch":False
+    }
     self.to_fetch = False
     self.Reg = False
     self.Err = False
