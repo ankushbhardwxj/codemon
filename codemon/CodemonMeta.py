@@ -143,7 +143,7 @@ def get_filename(contestName):
   contest_number = ''.join(re.findall(r'\d+', contestName))
   # In case contest number is not there, initialize a generic A, B, C, D, E, F
   if(not len(contest_number)):
-    fileNames = ['A','B','C','D','E','F', 'G']
+    fileNames = ['A','B','C','D','E','F','G']
   else:
     try:
       page = requests.get(f"https://codeforces.com/contest/{contest_number}/problems")
