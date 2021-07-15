@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
   name='codemon',
-  version='0.0.5',
+  version='0.0.2',
   author='Ankush Bhardwaj',
   author_email='ankush.bhardwaj0@gmail.com',
   description='CLI tool to ace competitive programming contests',

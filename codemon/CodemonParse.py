@@ -15,6 +15,7 @@ class Parser:
     }
     self.to_fetch = False
     self.Reg = False
+    self.clean = False
     self.Err = False
     self.name = ""
 
@@ -27,6 +28,7 @@ class Parser:
     # Extract all non flag arguments
     arguments = [i for i in arg_list if i not in flags]
 
+    # flags for languages
     for fl in flags:
       if fl == '-py':
         if checkMultipleLangFlags(fl, '-java', '-cpp', flags):
@@ -45,6 +47,7 @@ class Parser:
       elif fl == "--help":
         self.help = True
 
+    # arg parsing for commands
     for arg in arguments:
       if arg == "listen":
         if checkExtraArgs(arg, arguments) == True:
@@ -60,6 +63,8 @@ class Parser:
         self.Reg = True
       elif arg == "practice":
         self.to_practice = True
+      elif arg == "clean":
+        self.clean = True
       elif arg == "fetch":
         if checkExtraArgs(arg, arguments) == True:
           self.Err = True

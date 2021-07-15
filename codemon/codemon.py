@@ -9,6 +9,7 @@ from codemon.CodemonReg import codemonReg
 from codemon.CodemonMeta import get_filename, get_practice_files
 from codemon.CodemonFetch import fetchTestcases
 from codemon.CodemonParse import Parser
+from codemon.CodemonClean import codemonClean
 
 def main():
   arg = Parser()
@@ -19,10 +20,20 @@ def main():
       showHelp()
     elif arg.to_listen:
       listen()
+    elif arg.clean:
+      dirName = arg.name
+      if len(dirName) > 0:
+        codemonClean(dirName)
+      else:
+        print('Cannot clean since no directory name has been specified')
     elif arg.to_practice:
       contestName = arg.name
       practiceFiles = get_practice_files()
       init(contestName, practiceFiles, arg.init_flags)
+    elif arg.to_fetch:
+      contestName = os.path.basename(os.getcwd())
+      fileNames = get_filename(contestName)
+      fetchTestcases(fileNames, contestName)
     elif arg.to_init:
       if arg.init_flags["is_single"]:
         fileName = arg.name
@@ -41,10 +52,6 @@ def main():
         else:
           print('Cannot create contest directory since no directory name has been specified.')
           print("Try 'codemon init <dirName>'.")
-    elif arg.to_fetch:
-      contestName = os.path.basename(os.getcwd())
-      fileNames = get_filename(contestName)
-      fetchTestcases(fileNames, contestName)
     elif arg.Reg:
       codemonReg()
     else:
