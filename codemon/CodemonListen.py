@@ -2,7 +2,6 @@ import os
 import subprocess
 import sys
 import time
-import itertools
 from difflib import Differ
 from pathlib import Path
 from clint.textui import colored
@@ -144,7 +143,7 @@ class Runner:
   # Check for necessary files and create them
   def check_files(self):
     fName = os.path.basename(self.srcFilePath).split('.')[0]
-    if len(fName) <= 1: 
+    if len(fName) <= 1:
       if not Path(self.srcFilePath).is_file():
         print("Cannot find source file to be compiled at {os.path.relpath(self.srcFilePath)}")
         return False
@@ -177,13 +176,16 @@ class Runner:
         yield line
 
 def isModified(event):
-  modifiedFile = os.path.basename(event.src_path) 
-  modifiedFileDirectory = os.path.dirname(event.src_path)
-  execute = Runner(modifiedFile, modifiedFileDirectory)
-  fileCheckRes, typeOfDir = execute.check_files()
-  if fileCheckRes:
-    if(modifiedFile.split('.')[-1] == 'cpp'): execute.run_cpp(typeOfDir)
-    elif(modifiedFile.split('.')[-1] == 'py'): execute.run_py(typeOfDir)
+  try:
+    modifiedFile = os.path.basename(event.src_path) 
+    modifiedFileDirectory = os.path.dirname(event.src_path)
+    execute = Runner(modifiedFile, modifiedFileDirectory)
+    fileCheckRes, typeOfDir = execute.check_files()
+    if fileCheckRes:
+      if(modifiedFile.split('.')[-1] == 'cpp'): execute.run_cpp(typeOfDir)
+      elif(modifiedFile.split('.')[-1] == 'py'): execute.run_py(typeOfDir)
+  except:
+    print("Error in codemon listen. Check if you're in correct contest directory.")
 
 def listen():
   print(colored.yellow("Getting files in directory"))

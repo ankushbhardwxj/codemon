@@ -25,13 +25,13 @@ def writeToFiles(fileLoader):
 # get template and file extension
 def getTemplatesMetadata(initFlags):
   ext, templateContent =  None, None
-  if initFlags["is_py"]:
+  if initFlags["py"]:
     ext = "py"
     templateContent = Templates().get_custom_template("py") or Templates().default_py()
-  elif initFlags["is_java"]:
+  elif initFlags["java"]:
     ext = "java"
     templateContent = Templates().get_custom_template("java") or Templates().default_java()
-  elif initFlags["is_cpp"]:
+  elif initFlags["cpp"]:
     ext = "cpp"
     templateContent = Templates().get_custom_template("cpp") or Templates().default_cpp()
   return ext, templateContent
