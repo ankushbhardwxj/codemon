@@ -13,6 +13,7 @@ def showHelp():
                                                                """))
   
   print("A CLI tool to ace competitive programming contests")
+  print("version: latest")
   print(colored.cyan("\nCOMMANDS: \n"))
   print("codemon - - - - - - - - - - - - - - -  displays this message.")
   print("codemon --help | -h - - - - - - - - -  shows help.")

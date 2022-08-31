@@ -46,7 +46,10 @@ class Runner:
     return res
 
   def compileTarget(self, executable):
-    compiledProcess = subprocess.Popen(['g++', self.srcFilePath, '-o', executable], 
+    cppCompiler = "g++"
+    if sys.platform == "darwin":
+      cppCompiler = "g++-11"
+    compiledProcess = subprocess.Popen([cppCompiler, self.srcFilePath, '-o', executable], 
         stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     compiledProcess.wait()
     compiledProcess.terminate()
@@ -199,6 +202,7 @@ def listen():
     case_sensitive = True
     event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, case_sensitive)
     event_handler.on_created = isModified 
+    event_handler.on_modified = isModified
     observer = Observer()
     observer.schedule(event_handler,path,recursive=True)
     observer.start()
@@ -210,4 +214,3 @@ def listen():
     observer.join()
   else:
     print(colored.red("No files exist, check filename/path."))
-
